@@ -4,16 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi-vue-plus</artifactId>
-    <version>4.8.0</version>
+    <groupId>com.tcps</groupId>
+    <artifactId>telemedicine-consultation-platform-system</artifactId>
+    <version>1.0</version>
 
-    <name>RuoYi-Vue-Plus</name>
-    <url>https://gitee.com/dromara/RuoYi-Vue-Plus</url>
-    <description>RuoYi-Vue-Plus后台管理系统</description>
+    <name>TelemedicineConsultationPlatformSystem</name>
+    <description>远程医疗会诊系统</description>
 
     <properties>
-        <ruoyi-vue-plus.version>4.8.0</ruoyi-vue-plus.version>
+        <tcps.version>1.0</tcps.version>
         <spring-boot.version>2.7.13</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -277,74 +276,74 @@
 
             <!-- 定时任务 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-job</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-job</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-generator</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-framework</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-framework</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-system</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-common</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- OSS对象存储模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-oss</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-oss</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- SMS短信模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-sms</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-sms</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
             <!-- demo模块 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-demo</artifactId>
-                <version>${ruoyi-vue-plus.version}</version>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-demo</artifactId>
+                <version>${tcps.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-job</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
-        <module>ruoyi-demo</module>
-        <module>ruoyi-extend</module>
-        <module>ruoyi-oss</module>
-        <module>ruoyi-sms</module>
+        <module>tcps-admin</module>
+        <module>tcps-framework</module>
+        <module>tcps-system</module>
+        <module>tcps-job</module>
+        <module>tcps-generator</module>
+        <module>tcps-common</module>
+        <module>tcps-demo</module>
+        <module>tcps-extend</module>
+        <module>tcps-oss</module>
+        <module>tcps-sms</module>
     </modules>
     <packaging>pom</packaging>
 

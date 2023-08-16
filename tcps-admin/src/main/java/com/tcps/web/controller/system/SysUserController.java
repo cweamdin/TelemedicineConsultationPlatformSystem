@@ -7,11 +7,10 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.tcps.common.annotation.Log;
-import com.tcps.common.constant.UserConstants;
 import com.tcps.common.core.controller.BaseController;
 import com.tcps.common.core.domain.PageQuery;
 import com.tcps.common.core.domain.R;
-import com.tcps.common.core.domain.entity.SysDept;
+import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.page.TableDataInfo;
@@ -24,7 +23,7 @@ import com.tcps.common.utils.poi.ExcelUtil;
 import com.tcps.system.domain.vo.SysUserExportVo;
 import com.tcps.system.domain.vo.SysUserImportVo;
 import com.tcps.system.listener.SysUserImportListener;
-import com.tcps.system.service.ISysDeptService;
+import com.tcps.system.service.ISysOfficeService;
 import com.tcps.system.service.ISysPostService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
@@ -54,7 +53,7 @@ public class SysUserController extends BaseController {
     private final ISysUserService userService;
     private final ISysRoleService roleService;
     private final ISysPostService postService;
-    private final ISysDeptService deptService;
+    private final ISysOfficeService officeService;
 
     /**
      * 获取用户列表
@@ -75,11 +74,11 @@ public class SysUserController extends BaseController {
         List<SysUser> list = userService.selectUserList(user);
         List<SysUserExportVo> listVo = BeanUtil.copyToList(list, SysUserExportVo.class);
         for (int i = 0; i < list.size(); i++) {
-            SysDept dept = list.get(i).getDept();
+            SysOffice office = list.get(i).getOffice();
             SysUserExportVo vo = listVo.get(i);
-            if (ObjectUtil.isNotEmpty(dept)) {
-                vo.setDeptName(dept.getDeptName());
-                vo.setLeader(dept.getLeader());
+            if (ObjectUtil.isNotEmpty(office)) {
+                vo.setOfficeName(office.getOfficeName());
+                vo.setLeader("");
             }
         }
         ExcelUtil.exportExcel(listVo, "用户数据", SysUserExportVo.class, response);
@@ -138,7 +137,7 @@ public class SysUserController extends BaseController {
     public R<Void> add(@Validated @RequestBody SysUser user) {
         if (!userService.checkUserNameUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhone()) && !userService.checkPhoneUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
@@ -158,7 +157,7 @@ public class SysUserController extends BaseController {
         userService.checkUserDataScope(user.getUserId());
         if (!userService.checkUserNameUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhone()) && !userService.checkPhoneUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
@@ -241,9 +240,9 @@ public class SysUserController extends BaseController {
      * 获取部门树列表
      */
     @SaCheckPermission("system:user:list")
-    @GetMapping("/deptTree")
-    public R<List<Tree<Long>>> deptTree(SysDept dept) {
-        return R.ok(deptService.selectDeptTreeList(dept));
+    @GetMapping("/officeTree")
+    public R<List<Tree<Long>>> officeTree(SysOffice office) {
+        return R.ok(officeService.selectOfficeTreeList(office));
     }
 
 }

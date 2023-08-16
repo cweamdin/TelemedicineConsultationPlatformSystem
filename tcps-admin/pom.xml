@@ -5,11 +5,17 @@
     <parent>
         <artifactId>telemedicine-consultation-platform-system</artifactId>
         <groupId>com.tcps</groupId>
-        <version>1.0</version>
+        <version>${version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>tcps-admin</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
     <description>
         web服务入口
@@ -53,12 +59,7 @@
 
         <dependency>
             <groupId>com.tcps</groupId>
-            <artifactId>tcps-system</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.tcps</groupId>
-            <artifactId>tcps-job</artifactId>
+            <artifactId>tcps-generator</artifactId>
         </dependency>
 
         <dependency>
@@ -66,16 +67,9 @@
             <artifactId>tcps-oss</artifactId>
         </dependency>
 
-        <!-- 代码生成-->
         <dependency>
             <groupId>com.tcps</groupId>
-            <artifactId>tcps-generator</artifactId>
-        </dependency>
-
-        <!--  demo模块  -->
-        <dependency>
-            <groupId>com.tcps</groupId>
-            <artifactId>tcps-demo</artifactId>
+            <artifactId>tcps-system</artifactId>
         </dependency>
 
         <dependency>

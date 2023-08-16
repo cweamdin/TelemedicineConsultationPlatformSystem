@@ -49,7 +49,7 @@ public class UserActionListener implements SaTokenListener {
             dto.setLoginTime(System.currentTimeMillis());
             dto.setTokenId(tokenValue);
             dto.setUserName(user.getUsername());
-            dto.setDeptName(user.getDeptName());
+            dto.setOfficeName(user.getOfficeName());
             if(tokenConfig.getTimeout() == -1) {
                 RedisUtils.setCacheObject(CacheConstants.ONLINE_TOKEN_KEY + tokenValue, dto);
             } else {

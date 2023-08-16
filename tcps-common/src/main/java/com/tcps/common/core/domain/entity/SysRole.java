@@ -39,12 +39,25 @@ public class SysRole extends BaseEntity {
     private Long roleId;
 
     /**
+     * 归属机构
+     */
+    private String officeId;
+
+    /**
      * 角色名称
      */
     @ExcelProperty(value = "角色名称")
     @NotBlank(message = "角色名称不能为空")
     @Size(min = 0, max = 30, message = "角色名称长度不能超过{max}个字符")
     private String roleName;
+
+    @ExcelProperty(value = "角色英文名称")
+    @NotBlank(message = "角色英文名称不能为空")
+    @Size(min = 0, max = 30, message = "角色英文名称长度不能超过{max}个字符")
+    /**
+     * 英文名称
+     */
+    private String roleEnName;
 
     /**
      * 角色权限
@@ -62,6 +75,12 @@ public class SysRole extends BaseEntity {
     private Integer roleSort;
 
     /**
+     * 角色类型
+     */
+    @NotNull(message = "显示类型不能为空")
+    private String roleType;
+
+    /**
      * 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限）
      */
     @ExcelProperty(value = "数据范围", converter = ExcelDictConvert.class)
@@ -76,7 +95,7 @@ public class SysRole extends BaseEntity {
     /**
      * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
      */
-    private Boolean deptCheckStrictly;
+    private Boolean officeCheckStrictly;
 
     /**
      * 角色状态（0正常 1停用）
@@ -86,15 +105,25 @@ public class SysRole extends BaseEntity {
     private String status;
 
     /**
+     * 是否系统数据(1是 0不是)
+     */
+    private String sys;
+
+    /**
      * 删除标志（0代表存在 2代表删除）
      */
     @TableLogic
     private String delFlag;
 
     /**
+     * 企业帐套
+     */
+    private String accountId;
+
+    /**
      * 备注
      */
-    private String remark;
+    private String remarks;
 
     /**
      * 用户是否存在此角色标识 默认不存在
@@ -112,7 +141,7 @@ public class SysRole extends BaseEntity {
      * 部门组（数据权限）
      */
     @TableField(exist = false)
-    private Long[] deptIds;
+    private Long[] officeIds;
 
     public SysRole(Long roleId) {
         this.roleId = roleId;

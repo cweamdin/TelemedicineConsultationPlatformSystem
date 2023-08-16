@@ -5,14 +5,14 @@ import com.tcps.common.annotation.Log;
 import com.tcps.common.core.controller.BaseController;
 import com.tcps.common.core.domain.PageQuery;
 import com.tcps.common.core.domain.R;
-import com.tcps.common.core.domain.entity.SysDept;
+import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.page.TableDataInfo;
 import com.tcps.common.enums.BusinessType;
 import com.tcps.common.utils.poi.ExcelUtil;
 import com.tcps.system.domain.SysUserRole;
-import com.tcps.system.service.ISysDeptService;
+import com.tcps.system.service.ISysOfficeService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
 import com.tcps.system.service.SysPermissionService;
@@ -38,7 +38,7 @@ public class SysRoleController extends BaseController {
 
     private final ISysRoleService roleService;
     private final ISysUserService userService;
-    private final ISysDeptService deptService;
+    private final ISysOfficeService deptService;
     private final SysPermissionService permissionService;
 
     /**
@@ -221,8 +221,8 @@ public class SysRoleController extends BaseController {
     @GetMapping(value = "/deptTree/{roleId}")
     public R<Map<String, Object>> roleDeptTreeselect(@PathVariable("roleId") Long roleId) {
         Map<String, Object> ajax = new HashMap<>();
-        ajax.put("checkedKeys", deptService.selectDeptListByRoleId(roleId));
-        ajax.put("depts", deptService.selectDeptTreeList(new SysDept()));
+        ajax.put("checkedKeys", deptService.selectOfficeListByRoleId(roleId));
+        ajax.put("depts", deptService.selectOfficeTreeList(new SysOffice()));
         return R.ok(ajax);
     }
 }

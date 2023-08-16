@@ -6,13 +6,13 @@
 
     <groupId>com.tcps</groupId>
     <artifactId>telemedicine-consultation-platform-system</artifactId>
-    <version>1.0</version>
+    <version>${version}</version>
 
     <name>TelemedicineConsultationPlatformSystem</name>
     <description>远程医疗会诊系统</description>
 
     <properties>
-        <tcps.version>1.0</tcps.version>
+        <version>1.0</version>
         <spring-boot.version>2.7.13</spring-boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -45,7 +45,7 @@
         <!-- OSS 配置 -->
         <aws-java-sdk-s3.version>1.12.400</aws-java-sdk-s3.version>
         <!-- SMS 配置 -->
-        <sms4j.version>2.2.0</sms4j.version>
+<!--        <sms4j.version>2.2.0</sms4j.version>-->
     </properties>
 
     <profiles>
@@ -192,18 +192,6 @@
                 <version>${okhttp.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-s3</artifactId>
-                <version>${aws-java-sdk-s3.version}</version>
-            </dependency>
-
-            <!--短信sms4j-->
-            <dependency>
-                <groupId>org.dromara.sms4j</groupId>
-                <artifactId>sms4j-spring-boot-starter</artifactId>
-                <version>${sms4j.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>de.codecentric</groupId>
@@ -240,12 +228,6 @@
                 <version>${lock4j.version}</version>
             </dependency>
 
-            <!-- xxl-job-core -->
-            <dependency>
-                <groupId>com.xuxueli</groupId>
-                <artifactId>xxl-job-core</artifactId>
-                <version>${xxl-job.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -274,61 +256,48 @@
                 <version>${bouncycastle.version}</version>
             </dependency>
 
-            <!-- 定时任务 -->
-            <dependency>
-                <groupId>com.tcps</groupId>
-                <artifactId>tcps-job</artifactId>
-                <version>${tcps.version}</version>
-            </dependency>
 
             <!-- 代码生成-->
             <dependency>
                 <groupId>com.tcps</groupId>
                 <artifactId>tcps-generator</artifactId>
-                <version>${tcps.version}</version>
+                <version>${version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-java-sdk-s3.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
                 <groupId>com.tcps</groupId>
                 <artifactId>tcps-framework</artifactId>
-                <version>${tcps.version}</version>
+                <version>${version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.tcps</groupId>
                 <artifactId>tcps-system</artifactId>
-                <version>${tcps.version}</version>
+                <version>${version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.tcps</groupId>
                 <artifactId>tcps-common</artifactId>
-                <version>${tcps.version}</version>
+                <version>${version}</version>
             </dependency>
 
             <!-- OSS对象存储模块 -->
             <dependency>
                 <groupId>com.tcps</groupId>
                 <artifactId>tcps-oss</artifactId>
-                <version>${tcps.version}</version>
+                <version>${version}</version>
             </dependency>
 
-            <!-- SMS短信模块 -->
-            <dependency>
-                <groupId>com.tcps</groupId>
-                <artifactId>tcps-sms</artifactId>
-                <version>${tcps.version}</version>
-            </dependency>
-
-            <!-- demo模块 -->
-            <dependency>
-                <groupId>com.tcps</groupId>
-                <artifactId>tcps-demo</artifactId>
-                <version>${tcps.version}</version>
-            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -336,14 +305,8 @@
     <modules>
         <module>tcps-admin</module>
         <module>tcps-framework</module>
-        <module>tcps-system</module>
-        <module>tcps-job</module>
-        <module>tcps-generator</module>
         <module>tcps-common</module>
-        <module>tcps-demo</module>
-        <module>tcps-extend</module>
-        <module>tcps-oss</module>
-        <module>tcps-sms</module>
+        <module>tcps-modules</module>
     </modules>
     <packaging>pom</packaging>
 

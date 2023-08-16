@@ -28,12 +28,12 @@ public class LoginUser implements Serializable {
     /**
      * 部门ID
      */
-    private Long deptId;
+    private Long officeId;
 
     /**
      * 部门名
      */
-    private String deptName;
+    private String officeName;
 
     /**
      * 用户唯一标识

@@ -19,10 +19,6 @@ import com.tcps.framework.config.properties.MailProperties;
 import com.tcps.system.service.ISysConfigService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dromara.sms4j.api.SmsBlend;
-import org.dromara.sms4j.api.entity.SmsResponse;
-import org.dromara.sms4j.core.factory.SmsFactory;
-import org.dromara.sms4j.provider.enumerate.SupplierType;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -33,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotBlank;
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -59,19 +54,6 @@ public class CaptchaController {
      */
     @GetMapping("/captchaSms")
     public R<Void> smsCaptcha(@NotBlank(message = "{user.phonenumber.not.blank}") String phonenumber) {
-        String key = CacheConstants.CAPTCHA_CODE_KEY + phonenumber;
-        String code = RandomUtil.randomNumbers(4);
-        RedisUtils.setCacheObject(key, code, Duration.ofMinutes(Constants.CAPTCHA_EXPIRATION));
-        // 验证码模板id 自行处理 (查数据库或写死均可)
-        String templateId = "";
-        LinkedHashMap<String, String> map = new LinkedHashMap<>(1);
-        map.put("code", code);
-        SmsBlend smsBlend = SmsFactory.createSmsBlend(SupplierType.ALIBABA);
-        SmsResponse smsResponse = smsBlend.sendMessage(phonenumber, templateId, map);
-        if (!"OK".equals(smsResponse.getCode())) {
-            log.error("验证码短信发送异常 => {}", smsResponse);
-            return R.fail(smsResponse.getMessage());
-        }
         return R.ok();
     }
 

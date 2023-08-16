@@ -33,13 +33,18 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
-    @TableId(value = "user_id")
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Long userId;
 
     /**
-     * 部门ID
+     * 归属公司
      */
-    private Long deptId;
+    private Long companyId;
+
+    /**
+     * 归属机构部门
+     */
+    private Long officeId;
 
     /**
      * 用户账号
@@ -50,12 +55,12 @@ public class SysUser extends BaseEntity {
     private String userName;
 
     /**
-     * 用户昵称
+     * 用户名称
      */
-    @Xss(message = "用户昵称不能包含脚本字符")
-    @NotBlank(message = "用户昵称不能为空")
-    @Size(min = 0, max = 30, message = "用户昵称长度不能超过{max}个字符")
-    private String nickName;
+    @Xss(message = "用户名称不能包含脚本字符")
+    @NotBlank(message = "用户名称不能为空")
+    @Size(min = 0, max = 30, message = "用户名称长度不能超过{max}个字符")
+    private String name;
 
     /**
      * 用户类型（sys_user系统用户）
@@ -74,12 +79,19 @@ public class SysUser extends BaseEntity {
      * 手机号码
      */
     @Sensitive(strategy = SensitiveStrategy.PHONE)
-    private String phonenumber;
+    private String phone;
+
+    private String no;
 
     /**
-     * 用户性别
+     * 职位
      */
-    private String sex;
+    private String jobName;
+
+    /**
+     * 职级
+     */
+    private String jobLevel;
 
     /**
      * 用户头像
@@ -121,18 +133,23 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+    private Date loginTime;
 
     /**
      * 备注
      */
-    private String remark;
+    private String remarks;
 
     /**
-     * 部门对象
+     * 企业帐套
+     */
+    private String accountId;
+
+    /**
+     * todo 机构对象
      */
     @TableField(exist = false)
-    private SysDept dept;
+    private SysOffice office;
 
     /**
      * 角色对象
@@ -145,12 +162,6 @@ public class SysUser extends BaseEntity {
      */
     @TableField(exist = false)
     private Long[] roleIds;
-
-    /**
-     * 岗位组
-     */
-    @TableField(exist = false)
-    private Long[] postIds;
 
     /**
      * 数据权限 当前角色ID

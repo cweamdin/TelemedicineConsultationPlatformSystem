@@ -58,7 +58,7 @@ public class SysProfileController extends BaseController {
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> updateProfile(@RequestBody SysUser user) {
-        if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        if (StringUtils.isNotEmpty(user.getPhone()) && !userService.checkPhoneUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         }
         if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
@@ -68,7 +68,7 @@ public class SysProfileController extends BaseController {
         user.setUserName(null);
         user.setPassword(null);
         user.setAvatar(null);
-        user.setDeptId(null);
+        user.setOfficeId(null);
         if (userService.updateUserProfile(user) > 0) {
             return R.ok();
         }

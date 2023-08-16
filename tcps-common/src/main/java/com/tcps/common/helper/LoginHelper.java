@@ -116,7 +116,7 @@ public class LoginHelper {
      * 获取部门ID
      */
     public static Long getDeptId() {
-        return getLoginUser().getDeptId();
+        return getLoginUser().getOfficeId();
     }
 
     /**

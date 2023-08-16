@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcps.system.mapper.SysUserMapper">
+
+    <resultMap type="SysUser" id="SysUserResult">
+        <id property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="companyId" column="company_id" jdbcType="BIGINT"/>
+        <result property="officeId" column="office_id" jdbcType="BIGINT"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="userType" column="user_type" jdbcType="CHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="CHAR"/>
+        <result property="no" column="no" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="jobName" column="job_name" jdbcType="VARCHAR"/>
+        <result property="jobLevel" column="job_level" jdbcType="CHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="loginIp" column="login_ip" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="CHAR"/>
+        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <association property="office" column="office_id" javaType="SysOffice" resultMap="officeResult"/>
+        <collection property="roles" javaType="java.util.List" resultMap="RoleResult"/>
+    </resultMap>
+
+    <resultMap id="officeResult" type="SysOffice">
+        <id property="officeId" column="office_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="officeName" column="office_name"/>
+        <result property="ancestors" column="ancestors"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="primaryLeader" column="primary_leader"/>
+        <result property="status" column="office_status"/>
+    </resultMap>
+
+    <resultMap id="RoleResult" type="SysRole">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleKey" column="role_key"/>
+        <result property="roleSort" column="role_sort"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="status" column="role_status"/>
+    </resultMap>
+
+    <sql id="selectUserVo">
+        select u.user_id,
+               u.company_id,
+               u.office_id,
+               u.user_name,
+               u.name,
+               u.user_type,
+               u.email,
+               u.avatar,
+               u.phone,
+               u.password,
+               u.status,
+               u.no,
+               u.job_name,
+               u.job_level,
+               u.del_flag,
+               u.login_ip,
+               u.login_time,
+               u.create_by,
+               u.create_time,
+               u.remarks,
+               d.office_id,
+               d.parent_id,
+               d.ancestors,
+               d.office_name,
+               d.order_num,
+               d.primary_leader,
+               d.status as office_status,
+               r.role_id,
+               r.role_name,
+               r.role_key,
+               r.role_sort,
+               r.data_scope,
+               r.status as role_status
+        from sys_user u
+            left join sys_office d on u.office_id = d.office_id
+            left join sys_user_role sur on u.user_id = sur.user_id
+            left join sys_role r on r.role_id = sur.role_id
+    </sql>
+
+    <select id="selectPageUserList" resultMap="SysUserResult">
+        select u.user_id, u.office_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber, u.sex,
+            u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.office_name, d.primary_leader
+        from sys_user u
+            left join sys_office d on u.office_id = d.office_id
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="selectUserList" resultMap="SysUserResult">
+        select u.user_id, u.office_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber, u.sex,
+            u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.office_name, d.primary_leader
+        from sys_user u
+            left join sys_office d on u.office_id = d.office_id
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="selectAllocatedList" resultMap="SysUserResult">
+        select distinct u.user_id, u.office_id, u.user_name, u.nick_name, u.email, u.phonenumber, u.status, u.create_time
+        from sys_user u
+             left join sys_office d on u.office_id = d.office_id
+             left join sys_user_role sur on u.user_id = sur.user_id
+             left join sys_role r on r.role_id = sur.role_id
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="selectUnallocatedList" resultMap="SysUserResult">
+        select distinct u.user_id, u.office_id, u.user_name, u.nick_name, u.email, u.phonenumber, u.status, u.create_time
+        from sys_user u
+             left join sys_office d on u.office_id = d.office_id
+             left join sys_user_role sur on u.user_id = sur.user_id
+             left join sys_role r on r.role_id = sur.role_id
+        ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="selectUserByUserName" parameterType="String" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.del_flag = '0' and u.user_name = #{userName}
+    </select>
+
+    <select id="selectUserByPhone" parameterType="String" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.del_flag = '0' and u.phonenumber = #{phonenumber}
+    </select>
+
+    <select id="selectUserByEmail" parameterType="String" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.del_flag = '0' and u.email = #{email}
+    </select>
+
+    <select id="selectUserById" parameterType="Long" resultMap="SysUserResult">
+        <include refid="selectUserVo"/>
+        where u.del_flag = '0' and u.user_id = #{userId}
+    </select>
+
+
+</mapper>

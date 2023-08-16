@@ -61,12 +61,12 @@ public class SysMenu extends TreeEntity<SysMenu> {
     /**
      * 是否为外链（0是 1否）
      */
-    private String isFrame;
+    private String frame;
 
     /**
      * 是否缓存（0缓存 1不缓存）
      */
-    private String isCache;
+    private String cache;
 
     /**
      * 类型（M目录 C菜单 F按钮）
@@ -89,7 +89,7 @@ public class SysMenu extends TreeEntity<SysMenu> {
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Size(min = 0, max = 100, message = "权限标识长度不能超过{max}个字符")
-    private String perms;
+    private String permission;
 
     /**
      * 菜单图标
@@ -99,6 +99,11 @@ public class SysMenu extends TreeEntity<SysMenu> {
     /**
      * 备注
      */
-    private String remark;
+    private String remarks;
+
+    /**
+     * 账套
+     */
+    private String accountId;
 
 }

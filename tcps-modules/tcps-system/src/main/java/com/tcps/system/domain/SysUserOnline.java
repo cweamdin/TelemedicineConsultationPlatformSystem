@@ -1,21 +1,15 @@
-package com.tcps.common.core.domain.dto;
+package com.tcps.system.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * 当前在线会话
  *
- * @author ruoyi
+ * @author Lion Li
  */
 
 @Data
-@NoArgsConstructor
-public class UserOnlineDTO implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class SysUserOnline {
 
     /**
      * 会话编号

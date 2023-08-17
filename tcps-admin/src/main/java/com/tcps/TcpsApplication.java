@@ -9,8 +9,7 @@ import org.springframework.boot.context.metrics.buffering.BufferingApplicationSt
  *
  * @author ruoyi
  */
-
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.tcps"})
 public class TcpsApplication {
 
     public static void main(String[] args) {

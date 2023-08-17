@@ -26,6 +26,12 @@ public class LoginUser implements Serializable {
     private Long userId;
 
     /**
+     * 租户ID
+     */
+    private String tenantId;
+
+
+    /**
      * 部门ID
      */
     private Long officeId;
@@ -39,6 +45,8 @@ public class LoginUser implements Serializable {
      * 用户唯一标识
      */
     private String token;
+
+    private String name;
 
     /**
      * 用户类型

@@ -1,5 +1,6 @@
 package com.tcps.system.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -15,6 +16,7 @@ import com.tcps.common.core.domain.PageQuery;
 import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
+import com.tcps.common.core.domain.vo.SysUserVo;
 import com.tcps.common.core.page.TableDataInfo;
 import com.tcps.common.core.service.UserService;
 import com.tcps.common.exception.ServiceException;
@@ -29,6 +31,7 @@ import com.tcps.system.mapper.*;
 import com.tcps.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -137,7 +140,9 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
      */
     @Override
     public SysUser selectUserByUserName(String userName) {
-        return baseMapper.selectUserByUserName(userName);
+        SysUser user = new SysUser();
+        BeanUtils.copyProperties(baseMapper.selectUserByUserName(userName),user);
+        return user;
     }
 
     /**

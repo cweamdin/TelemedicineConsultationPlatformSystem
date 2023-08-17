@@ -40,7 +40,7 @@ public class LoginHelper {
      * @param loginUser 登录用户信息
      */
     public static void login(LoginUser loginUser) {
-        loginByDevice(loginUser, null);
+        loginByDevice(loginUser, DeviceType.PC);
     }
 
     /**

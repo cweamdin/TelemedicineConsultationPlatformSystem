@@ -10,6 +10,7 @@ import com.tcps.common.annotation.ExcelDictFormat;
 import com.tcps.common.constant.UserConstants;
 import com.tcps.common.convert.ExcelDictConvert;
 import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_role")
 @ExcelIgnoreUnannotated
-public class SysRole extends BaseEntity {
+public class SysRole extends TenantEntity {
 
     /**
      * 角色ID
@@ -114,11 +115,6 @@ public class SysRole extends BaseEntity {
      */
     @TableLogic
     private String delFlag;
-
-    /**
-     * 企业帐套
-     */
-    private String accountId;
 
     /**
      * 备注

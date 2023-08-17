@@ -3,6 +3,7 @@ package com.tcps.system.domain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.model.TenantEntity;
 import com.tcps.common.xss.Xss;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,7 @@ import javax.validation.constraints.Size;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_notice")
-public class SysNotice extends BaseEntity {
+public class SysNotice extends TenantEntity {
 
     /**
      * 公告ID

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.tcps.common.annotation.ExcelDictFormat;
 import com.tcps.common.convert.ExcelDictConvert;
 import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,7 +24,7 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_config")
 @ExcelIgnoreUnannotated
-public class SysConfig extends BaseEntity {
+public class SysConfig extends TenantEntity {
 
     /**
      * 参数主键

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tcps.common.annotation.Sensitive;
 import com.tcps.common.constant.UserConstants;
-import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.model.TenantEntity;
 import com.tcps.common.enums.SensitiveStrategy;
 import com.tcps.common.xss.Xss;
 import lombok.Data;
@@ -28,7 +28,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_user")
-public class SysUser extends BaseEntity {
+public class SysUser extends TenantEntity {
 
     /**
      * 用户ID
@@ -139,11 +139,6 @@ public class SysUser extends BaseEntity {
      * 备注
      */
     private String remarks;
-
-    /**
-     * 企业帐套
-     */
-    private String accountId;
 
     /**
      * todo 机构对象

@@ -8,6 +8,7 @@ import com.tcps.common.annotation.ExcelDictFormat;
 import com.tcps.common.constant.UserConstants;
 import com.tcps.common.convert.ExcelDictConvert;
 import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -24,7 +25,7 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_dict_data")
 @ExcelIgnoreUnannotated
-public class SysDictData extends BaseEntity {
+public class SysDictData extends TenantEntity {
 
     /**
      * 字典编码

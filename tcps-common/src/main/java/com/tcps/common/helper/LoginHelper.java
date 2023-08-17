@@ -32,6 +32,8 @@ public class LoginHelper {
     public static final String LOGIN_USER_KEY = "loginUser";
     public static final String USER_KEY = "userId";
 
+    public static final String TENANT_KEY = "tenantId";
+
     /**
      * 登录系统
      *
@@ -63,7 +65,9 @@ public class LoginHelper {
 //        } else if (userType == UserType.APP_USER) {
 //            model.setTimeout(86400).setActiveTimeout(1800);
 //        }
-        StpUtil.login(loginUser.getLoginId(), model.setExtra(USER_KEY, loginUser.getUserId()));
+        StpUtil.login(loginUser.getLoginId(),
+            model.setExtra(TENANT_KEY, loginUser.getTenantId())
+                .setExtra(USER_KEY, loginUser.getUserId()));
         StpUtil.getTokenSession().set(LOGIN_USER_KEY, loginUser);
     }
 
@@ -96,6 +100,23 @@ public class LoginHelper {
     }
 
     /**
+     * 获取租户ID
+     */
+    public static String getTenantId() {
+        String tenantId;
+        try {
+            tenantId = (String) SaHolder.getStorage().get(TENANT_KEY);
+            if (ObjectUtil.isNull(tenantId)) {
+                tenantId = (String) StpUtil.getExtra(TENANT_KEY);
+                SaHolder.getStorage().set(TENANT_KEY, tenantId);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return tenantId;
+    }
+
+    /**
      * 获取用户id
      */
     public static Long getUserId() {
@@ -115,7 +136,7 @@ public class LoginHelper {
     /**
      * 获取部门ID
      */
-    public static Long getDeptId() {
+    public static Long getOfficeId() {
         return getLoginUser().getOfficeId();
     }
 

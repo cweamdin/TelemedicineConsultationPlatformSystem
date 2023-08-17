@@ -1,11 +1,13 @@
 package com.tcps.system.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tcps.common.annotation.DataColumn;
 import com.tcps.common.annotation.DataPermission;
 import com.tcps.common.core.domain.entity.SysUser;
+import com.tcps.common.core.domain.vo.SysUserVo;
 import com.tcps.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +18,7 @@ import java.util.List;
  *
  * @author Lion Li
  */
-public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, SysUser> {
+public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, SysUserVo> {
 
     @DataPermission({
         @DataColumn(key = "deptName", value = "d.dept_id"),
@@ -66,7 +68,7 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @param userName 用户名
      * @return 用户对象信息
      */
-    SysUser selectUserByUserName(String userName);
+    SysUserVo selectUserByUserName(String userName);
 
     /**
      * 通过手机号查询用户
@@ -91,5 +93,15 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @return 用户对象信息
      */
     SysUser selectUserById(Long userId);
+
+    /**
+     * 通过用户名查询用户(不走租户插件)
+     *
+     * @param userName 用户名
+     * @param tenantId 租户id
+     * @return 用户对象信息
+     */
+    @InterceptorIgnore(tenantLine = "true")
+    SysUser selectTenantUserByUserName(@Param("userName") String userName, @Param("tenantId") String tenantId);
 
 }

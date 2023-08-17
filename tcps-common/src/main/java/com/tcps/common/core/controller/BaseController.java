@@ -56,8 +56,8 @@ public class BaseController {
     /**
      * 获取登录部门id
      */
-    public Long getDeptId() {
-        return LoginHelper.getDeptId();
+    public Long getOfficeId() {
+        return LoginHelper.getOfficeId();
     }
 
     /**

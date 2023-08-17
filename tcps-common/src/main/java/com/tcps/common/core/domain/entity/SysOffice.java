@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
 
+import com.tcps.common.core.domain.OfficeTreeEntity;
 import com.tcps.common.core.domain.TreeEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,7 @@ import javax.validation.constraints.Size;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_dept")
-public class SysOffice extends TreeEntity<SysOffice> {
+public class SysOffice extends OfficeTreeEntity<SysOffice> {
     /**
      * 编号
      */
@@ -123,8 +122,4 @@ public class SysOffice extends TreeEntity<SysOffice> {
      */
     private String delFlag;
 
-    /**
-     * 账套
-     */
-    private String accountId;
 }

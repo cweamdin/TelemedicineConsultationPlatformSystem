@@ -17,6 +17,11 @@ import org.springframework.stereotype.Component;
 public class CaptchaProperties {
 
     /**
+     * 是否开启验证码
+     */
+    private Boolean enabled;
+
+    /**
      * 验证码类型
      */
     private CaptchaType type;

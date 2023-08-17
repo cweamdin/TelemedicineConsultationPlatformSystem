@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tcps.common.annotation.ExcelDictFormat;
 import com.tcps.common.convert.ExcelDictConvert;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -132,6 +133,11 @@ public class SysOperLog implements Serializable {
      */
     @ExcelProperty(value = "操作时间")
     private Date operTime;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 
     /**
      * 请求参数

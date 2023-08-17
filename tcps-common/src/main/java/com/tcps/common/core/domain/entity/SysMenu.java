@@ -101,9 +101,4 @@ public class SysMenu extends TreeEntity<SysMenu> {
      */
     private String remarks;
 
-    /**
-     * 账套
-     */
-    private String accountId;
-
 }

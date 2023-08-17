@@ -3,7 +3,7 @@ tcps:
   # 名称
   name: TelemedicineConsultationPlatformSystem
   # 版本
-  version: ${telemedicine-consultation-platform-system.version}
+  version: ${version}
   # 版权年份
   copyrightYear: 2022
   # 实例演示开关
@@ -15,6 +15,7 @@ tcps:
 
 captcha:
   # 页面 <参数设置> 可开启关闭 验证码校验
+  enabled: false
   # 验证码类型 math 数组计算 char 字符验证
   type: MATH
   # line 线段干扰 circle 圆圈干扰 shear 扭曲干扰
@@ -138,6 +139,7 @@ security:
     # actuator 监控配置
     - /actuator
     - /actuator/**
+    - /auth
 
 # MyBatisPlus配置
 # https://baomidou.com/config/
@@ -268,3 +270,17 @@ management:
       show-details: ALWAYS
     logfile:
       external-file: ./logs/sys-console.log
+
+
+# 多租户配置
+tenant:
+  # 是否开启
+  enable: true
+  # 排除表
+  excludes:
+    - sys_menu
+    - sys_tenant
+    - sys_tenant_package
+    - sys_role_dept
+    - sys_role_menu
+    - sys_user_role

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tcps.common.annotation.ExcelDictFormat;
 import com.tcps.common.convert.ExcelDictConvert;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Data
 @TableName("sys_logininfor")
 @ExcelIgnoreUnannotated
-public class SysLogininfor implements Serializable {
+public class SysLogininfor  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -81,6 +82,11 @@ public class SysLogininfor implements Serializable {
      */
     @ExcelProperty(value = "访问时间")
     private Date loginTime;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 
     /**
      * 请求参数

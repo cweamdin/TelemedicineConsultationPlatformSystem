@@ -1,6 +1,7 @@
 package com.tcps.common.core.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.tcps.common.core.domain.model.TenantEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

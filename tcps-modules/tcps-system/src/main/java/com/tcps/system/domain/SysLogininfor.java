@@ -24,7 +24,7 @@ import java.util.Map;
 @Data
 @TableName("sys_logininfor")
 @ExcelIgnoreUnannotated
-public class SysLogininfor extends TenantEntity implements Serializable {
+public class SysLogininfor  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -82,6 +82,11 @@ public class SysLogininfor extends TenantEntity implements Serializable {
      */
     @ExcelProperty(value = "访问时间")
     private Date loginTime;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 
     /**
      * 请求参数

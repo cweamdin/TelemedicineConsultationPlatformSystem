@@ -21,6 +21,7 @@ import com.tcps.system.mapper.SysUserMapper;
 import com.tcps.web.service.SysLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -98,9 +99,14 @@ public class PasswordGranterStrategy extends AbstractLoginGranterStrategy {
             log.info("登录用户：{} 已被停用.", username);
             throw new UserException("user.blocked", username);
         }
+        SysUserVo sysUserVo = new SysUserVo();
         if (TenantHelper.isEnable()) {
-            return sysUserMapper.selectTenantUserByUserName(username, tenantId);
+            SysUser sysUser = sysUserMapper.selectTenantUserByUserName(username, tenantId);
+            BeanUtils.copyProperties(sysUser,sysUserVo);
+            return sysUserVo;
         }
-        return sysUserMapper.selectUserByUserName(username);
+        SysUserVo sysUser = sysUserMapper.selectUserByUserName(username);
+        BeanUtils.copyProperties(sysUser,sysUserVo);
+        return sysUserVo;
     }
 }

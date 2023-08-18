@@ -24,7 +24,7 @@ import java.util.Map;
 @Data
 @TableName("sys_oper_log")
 @ExcelIgnoreUnannotated
-public class SysOperLog extends TenantEntity implements Serializable {
+public class SysOperLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -133,6 +133,11 @@ public class SysOperLog extends TenantEntity implements Serializable {
      */
     @ExcelProperty(value = "操作时间")
     private Date operTime;
+
+    /**
+     * 租户编号
+     */
+    private String tenantId;
 
     /**
      * 请求参数

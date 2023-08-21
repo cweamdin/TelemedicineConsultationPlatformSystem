@@ -310,6 +310,14 @@
                 <version>${version}</version>
             </dependency>
 
+            <!--    会诊模块        -->
+            <dependency>
+                <groupId>com.tcps</groupId>
+                <artifactId>tcps-consultation</artifactId>
+                <version>${version}</version>
+            </dependency>
+
+
 
         </dependencies>
     </dependencyManagement>
@@ -319,8 +327,6 @@
         <module>tcps-framework</module>
         <module>tcps-common</module>
         <module>tcps-modules</module>
-        <module>tcps-common</module>
-        <module>tcps-common</module>
     </modules>
     <packaging>pom</packaging>
 

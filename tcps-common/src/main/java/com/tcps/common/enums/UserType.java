@@ -15,14 +15,10 @@ import lombok.Getter;
 public enum UserType {
 
     /**
-     * pc端
+     * 系统用户
      */
-    SYS_USER("sys_user"),
+    SYS_USER("sys_user");
 
-    /**
-     * app端
-     */
-    APP_USER("app_user");
 
     private final String userType;
 

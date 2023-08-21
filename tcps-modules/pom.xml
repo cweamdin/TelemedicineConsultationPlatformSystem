@@ -26,6 +26,7 @@
         <module>tcps-system</module>
         <module>tcps-generator</module>
         <module>tcps-oss</module>
+        <module>tcps-consultation</module>
     </modules>
 
 

@@ -1,5 +1,6 @@
 package com.tcps.system.mapper;
 
+import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @author Lion Li
  */
+@InterceptorIgnore(tenantLine = "true")
 public interface SysMenuMapper extends BaseMapperPlus<SysMenuMapper, SysMenu, SysMenu> {
 
     /**

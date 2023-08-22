@@ -23,7 +23,7 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
         <result property="delFlag" column="del_flag" jdbcType="CHAR"/>
-        <result property="accountId" column="account_id" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="selectRoleVo">
@@ -45,11 +45,11 @@
                         r.update_time,
                         r.remarks,
                         r.del_flag,
-                        r.account_id
+                        r.tenant_id
         from sys_role r
                  left join sys_user_role sur on sur.role_id = r.role_id
                  left join sys_user u on u.user_id = sur.user_id
-                 left join sys_dept d on u.dept_id = d.dept_id
+                 left join sys_office d on u.office_id = d.office_id
     </sql>
 
     <select id="selectPageRoleList" resultMap="SysRoleResult">

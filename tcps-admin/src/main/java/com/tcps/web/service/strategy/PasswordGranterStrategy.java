@@ -91,7 +91,7 @@ public class PasswordGranterStrategy extends AbstractLoginGranterStrategy {
     private SysUserVo loadLoginBody(String tenantId, String username) {
         SysUser user = sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>()
             .select(SysUser::getUserName, SysUser::getTenantId)
-            .eq(TenantHelper.isEnable(), SysUser::getTenantId, tenantId));
+            .eq(TenantHelper.isEnable(), SysUser::getTenantId, tenantId).eq(SysUser::getUserName,username));
         if (ObjectUtil.isNull(user)) {
             log.info("登录用户：{} 不存在.", username);
             throw new UserException("user.not.exists", username);

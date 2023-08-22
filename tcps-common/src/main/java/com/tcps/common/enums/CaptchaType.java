@@ -17,6 +17,7 @@ public enum CaptchaType {
 
     /**
      * 数字
+     *
      */
     MATH(UnsignedMathGenerator.class),
 

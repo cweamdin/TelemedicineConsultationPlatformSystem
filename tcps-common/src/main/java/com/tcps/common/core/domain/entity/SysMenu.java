@@ -75,7 +75,7 @@ public class SysMenu extends TreeEntity<SysMenu> {
     private String menuType;
 
     /**
-     * 显示状态（0显示 1隐藏）
+     * 显示状态（1显示 0隐藏）
      */
     private String visible;
 

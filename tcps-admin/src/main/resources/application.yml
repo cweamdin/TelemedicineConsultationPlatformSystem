@@ -139,6 +139,7 @@ security:
     # actuator 监控配置
     - /actuator
     - /actuator/**
+    - /auth
 
 # MyBatisPlus配置
 # https://baomidou.com/config/

@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Lion Li
  */
-public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, SysUser> {
+public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, SysUserVo> {
 
     @DataPermission({
         @DataColumn(key = "deptName", value = "d.dept_id"),
@@ -102,6 +102,6 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @return 用户对象信息
      */
     @InterceptorIgnore(tenantLine = "true")
-    SysUserVo selectTenantUserByUserName(@Param("userName") String userName, @Param("tenantId") String tenantId);
+    SysUser selectTenantUserByUserName(@Param("userName") String userName, @Param("tenantId") String tenantId);
 
 }

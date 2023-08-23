@@ -8,8 +8,8 @@ import com.tcps.common.constant.Constants;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.domain.model.LoginUser;
 import com.tcps.common.core.domain.vo.SysUserVo;
-import com.tcps.web.domain.vo.request.LoginRequest;
-import com.tcps.web.domain.vo.response.LoginResponse;
+import com.tcps.common.core.domain.vo.request.LoginRequest;
+import com.tcps.common.core.domain.vo.response.LoginResponse;
 import com.tcps.common.enums.GranterTypeEnum;
 import com.tcps.common.enums.UserStatus;
 import com.tcps.common.exception.user.UserException;
@@ -68,7 +68,7 @@ public class PasswordGranterStrategy extends AbstractLoginGranterStrategy {
 
         SysUserVo user = loadLoginBody(tenantId, username);
         // 校验密码
-        loginService.checkLogin(getLoginTypeEnum(), tenantId, password, () -> !BCrypt.checkpw(password, user.getPassword()));
+        loginService.checkLogin(getLoginTypeEnum(), tenantId, username, () -> !BCrypt.checkpw(password, user.getPassword()));
 
         LoginUser loginUser = loginService.buildLoginUserInfo(user);
         // 生成token
@@ -91,7 +91,7 @@ public class PasswordGranterStrategy extends AbstractLoginGranterStrategy {
     private SysUserVo loadLoginBody(String tenantId, String username) {
         SysUser user = sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>()
             .select(SysUser::getUserName, SysUser::getTenantId)
-            .eq(TenantHelper.isEnable(), SysUser::getTenantId, tenantId));
+            .eq(TenantHelper.isEnable(), SysUser::getTenantId, tenantId).eq(SysUser::getUserName,username));
         if (ObjectUtil.isNull(user)) {
             log.info("登录用户：{} 不存在.", username);
             throw new UserException("user.not.exists", username);

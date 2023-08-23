@@ -1,7 +1,7 @@
 package com.tcps.web.service.strategy;
 
-import com.tcps.web.domain.vo.request.LoginRequest;
-import com.tcps.web.domain.vo.response.LoginResponse;
+import com.tcps.common.core.domain.vo.request.LoginRequest;
+import com.tcps.common.core.domain.vo.response.LoginResponse;
 import com.tcps.common.enums.GranterTypeEnum;
 import com.tcps.web.service.factory.LoginGranterFactory;
 

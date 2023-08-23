@@ -1,4 +1,4 @@
-package com.tcps.web.domain.vo.response;
+package com.tcps.common.core.domain.vo.response;
 
 import com.tcps.system.domain.vo.SysTenantVo;
 import io.github.linpeilie.annotations.AutoMapper;

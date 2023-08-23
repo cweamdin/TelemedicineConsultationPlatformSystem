@@ -1,4 +1,4 @@
-package com.tcps.web.service;
+package com.tcps.system.service;
 
 import cn.dev33.satoken.secure.BCrypt;
 import com.tcps.common.constant.Constants;
@@ -9,8 +9,6 @@ import com.tcps.common.exception.user.UserException;
 import com.tcps.common.utils.MessageUtils;
 import com.tcps.common.utils.ServletUtils;
 import com.tcps.common.utils.spring.SpringUtils;
-import com.tcps.framework.config.properties.CaptchaProperties;
-import com.tcps.system.service.ISysUserService;
 import com.tcps.web.domain.vo.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,6 @@ import org.springframework.stereotype.Service;
 public class SysRegisterService {
 
     private final ISysUserService userService;
-    private final CaptchaProperties captchaProperties;
 
     /**
      * 注册
@@ -34,7 +31,6 @@ public class SysRegisterService {
         String password = registerRequest.getPassword();
         String userType = UserType.getUserType(registerRequest.getUserType()).getUserType();
 
-        boolean captchaEnabled = captchaProperties.getEnabled();
         SysUser user = new SysUser();
         user.setUserName(username);
         user.setPassword(BCrypt.hashpw(password));
@@ -47,6 +43,7 @@ public class SysRegisterService {
         boolean regFlag = userService.registerUser(user, tenantId);
         if (!regFlag) {
             throw new UserException("user.register.error");
+
         }
 
         recordLogininfor(tenantId, username, Constants.REGISTER, MessageUtils.message("user.register.success"));

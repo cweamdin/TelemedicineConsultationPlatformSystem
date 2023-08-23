@@ -1,4 +1,4 @@
-package com.tcps.web.domain.vo.response;
+package com.tcps.common.core.domain.vo.response;
 
 import lombok.Data;
 

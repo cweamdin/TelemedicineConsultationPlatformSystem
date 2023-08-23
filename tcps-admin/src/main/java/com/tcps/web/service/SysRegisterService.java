@@ -1,5 +1,6 @@
 package com.tcps.web.service;
 
+import cn.dev33.satoken.secure.BCrypt;
 import com.tcps.common.constant.Constants;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.domain.event.LogininforEvent;
@@ -36,7 +37,7 @@ public class SysRegisterService {
         boolean captchaEnabled = captchaProperties.getEnabled();
         SysUser user = new SysUser();
         user.setUserName(username);
-        user.setPassword(password);
+        user.setPassword(BCrypt.hashpw(password));
         user.setUserType(userType);
 
         if (!userService.checkUserNameUnique(user)) {

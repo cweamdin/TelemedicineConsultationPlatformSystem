@@ -14,26 +14,26 @@ public interface ISysOfficeService {
     /**
      * 查询部门管理数据
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 部门信息集合
      */
-    List<SysOffice> selectOfficeList(SysOffice dept);
+    List<SysOffice> selectOfficeList(SysOffice office);
 
     /**
      * 查询部门树结构信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 部门树信息集合
      */
-    List<Tree<Long>> selectOfficeTreeList(SysOffice dept);
+    List<Tree<Long>> selectOfficeTreeList(SysOffice office);
 
     /**
      * 构建前端所需要下拉树结构
      *
-     * @param depts 部门列表
+     * @param offices 部门列表
      * @return 下拉树结构列表
      */
-    List<Tree<Long>> buildOfficeTreeSelect(List<SysOffice> depts);
+    List<Tree<Long>> buildOfficeTreeSelect(List<SysOffice> offices);
 
     /**
      * 根据角色ID查询部门树信息
@@ -46,71 +46,71 @@ public interface ISysOfficeService {
     /**
      * 根据部门ID查询信息
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 部门信息
      */
-    SysOffice selectOfficeById(Long deptId);
+    SysOffice selectOfficeById(Long officeId);
 
     /**
      * 根据ID查询所有子部门数（正常状态）
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 子部门数
      */
-    long selectNormalChildrenOfficeById(Long deptId);
+    long selectNormalChildrenOfficeById(Long officeId);
 
     /**
      * 是否存在部门子节点
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果
      */
-    boolean hasChildByOfficeId(Long deptId);
+    boolean hasChildByOfficeId(Long officeId);
 
     /**
      * 查询部门是否存在用户
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果 true 存在 false 不存在
      */
-    boolean checkOfficeExistUser(Long deptId);
+    boolean checkOfficeExistUser(Long officeId);
 
     /**
      * 校验部门名称是否唯一
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
-    boolean checkOfficeNameUnique(SysOffice dept);
+    boolean checkOfficeNameUnique(SysOffice office);
 
     /**
      * 校验部门是否有数据权限
      *
-     * @param deptId 部门id
+     * @param officeId 部门id
      */
-    void checkOfficeDataScope(Long deptId);
+    void checkOfficeDataScope(Long officeId);
 
     /**
      * 新增保存部门信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
-    int insertOffice(SysOffice dept);
+    int insertOffice(SysOffice office);
 
     /**
      * 修改保存部门信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
-    int updateOffice(SysOffice dept);
+    int updateOffice(SysOffice office);
 
     /**
      * 删除部门管理信息
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果
      */
-    int deleteOfficeById(Long deptId);
+    int deleteOfficeById(Long officeId);
 }

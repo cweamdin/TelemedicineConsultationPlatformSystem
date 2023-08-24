@@ -7,6 +7,7 @@ import com.tcps.common.constant.UserConstants;
 import com.tcps.common.core.controller.BaseController;
 import com.tcps.common.core.domain.R;
 import com.tcps.common.core.domain.entity.SysOffice;
+import com.tcps.common.core.domain.vo.OfficeTreeSelectVo;
 import com.tcps.common.enums.BusinessType;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.service.ISysOfficeService;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 部门信息
@@ -115,5 +118,18 @@ public class SysOfficeController extends BaseController {
         }
         officeService.checkOfficeDataScope(officeId);
         return toAjax(officeService.deleteOfficeById(officeId));
+    }
+
+    /**
+     * 获取对应角色部门树列表
+     *
+     */
+    @SaCheckPermission("system:office:list")
+    @GetMapping(value = "/officeTree")
+    public R<OfficeTreeSelectVo> officeTreeselect() {
+        List<SysOffice> offices = officeService.selectOfficeList(new SysOffice());
+        OfficeTreeSelectVo officeTreeSelectVo = new OfficeTreeSelectVo();
+        officeTreeSelectVo.setOffcies(officeService.buildOfficeTreeSelect(offices));
+        return R.ok(officeTreeSelectVo);
     }
 }

@@ -213,17 +213,5 @@ public class SysRoleController extends BaseController {
         return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
 
-    /**
-     * 获取对应角色部门树列表
-     *
-     * @param roleId 角色ID
-     */
-    @SaCheckPermission("system:role:list")
-    @GetMapping(value = "/deptTree/{roleId}")
-    public R<Map<String, Object>> roleDeptTreeselect(@PathVariable("roleId") Long roleId) {
-        Map<String, Object> ajax = new HashMap<>();
-        ajax.put("checkedKeys", deptService.selectOfficeListByRoleId(roleId));
-        ajax.put("depts", deptService.selectOfficeTreeList(new SysOffice()));
-        return R.ok(ajax);
-    }
+
 }

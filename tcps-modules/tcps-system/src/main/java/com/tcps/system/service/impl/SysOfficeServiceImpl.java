@@ -48,17 +48,17 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 查询部门管理数据
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 部门信息集合
      */
     @Override
-    public List<SysOffice> selectOfficeList(SysOffice dept) {
+    public List<SysOffice> selectOfficeList(SysOffice office) {
         LambdaQueryWrapper<SysOffice> lqw = new LambdaQueryWrapper<>();
         lqw.eq(SysOffice::getDelFlag, "0")
-            .eq(ObjectUtil.isNotNull(dept.getOfficeId()), SysOffice::getOfficeId, dept.getOfficeId())
-            .eq(ObjectUtil.isNotNull(dept.getParentId()), SysOffice::getParentId, dept.getParentId())
-            .like(StringUtils.isNotBlank(dept.getOfficeName()), SysOffice::getOfficeName, dept.getOfficeName())
-            .eq(StringUtils.isNotBlank(dept.getStatus()), SysOffice::getStatus, dept.getStatus())
+            .eq(ObjectUtil.isNotNull(office.getOfficeId()), SysOffice::getOfficeId, office.getOfficeId())
+            .eq(ObjectUtil.isNotNull(office.getParentId()), SysOffice::getParentId, office.getParentId())
+            .like(StringUtils.isNotBlank(office.getOfficeName()), SysOffice::getOfficeName, office.getOfficeName())
+            .eq(StringUtils.isNotBlank(office.getStatus()), SysOffice::getStatus, office.getStatus())
             .orderByAsc(SysOffice::getParentId)
             .orderByAsc(SysOffice::getOrderNum);
         return baseMapper.selectOfficeList(lqw);
@@ -67,31 +67,31 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 查询部门树结构信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 部门树信息集合
      */
     @Override
-    public List<Tree<Long>> selectOfficeTreeList(SysOffice dept) {
-        List<SysOffice> depts = this.selectOfficeList(dept);
-        return buildOfficeTreeSelect(depts);
+    public List<Tree<Long>> selectOfficeTreeList(SysOffice office) {
+        List<SysOffice> offices = this.selectOfficeList(office);
+        return buildOfficeTreeSelect(offices);
     }
 
     /**
      * 构建前端所需要下拉树结构
      *
-     * @param depts 部门列表
+     * @param offices 部门列表
      * @return 下拉树结构列表
      */
     @Override
-    public List<Tree<Long>> buildOfficeTreeSelect(List<SysOffice> depts) {
-        if (CollUtil.isEmpty(depts)) {
+    public List<Tree<Long>> buildOfficeTreeSelect(List<SysOffice> offices) {
+        if (CollUtil.isEmpty(offices)) {
             return CollUtil.newArrayList();
         }
-        return TreeBuildUtils.build(depts, (dept, tree) ->
-            tree.setId(dept.getOfficeId())
-                .setParentId(dept.getParentId())
-                .setName(dept.getOfficeName())
-                .setWeight(dept.getOrderNum()));
+        return TreeBuildUtils.build(offices, (office, tree) ->
+            tree.setId(office.getOfficeId())
+                .setParentId(office.getParentId())
+                .setName(office.getOfficeName())
+                .setWeight(office.getOrderNum()));
     }
 
     /**
@@ -109,35 +109,35 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 根据部门ID查询信息
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 部门信息
      */
-    @Cacheable(cacheNames = CacheNames.SYS_DEPT, key = "#deptId")
+    @Cacheable(cacheNames = CacheNames.SYS_DEPT, key = "#officeId")
     @Override
-    public SysOffice selectOfficeById(Long deptId) {
-        SysOffice dept = baseMapper.selectById(deptId);
-        if (ObjectUtil.isNull(dept)) {
+    public SysOffice selectOfficeById(Long officeId) {
+        SysOffice office = baseMapper.selectById(officeId);
+        if (ObjectUtil.isNull(office)) {
             return null;
         }
         SysOffice parentOffice = baseMapper.selectOne(new LambdaQueryWrapper<SysOffice>()
-            .select(SysOffice::getOfficeName).eq(SysOffice::getOfficeId, dept.getParentId()));
-        dept.setParentName(ObjectUtil.isNotNull(parentOffice) ? parentOffice.getOfficeName() : null);
-        return dept;
+            .select(SysOffice::getOfficeName).eq(SysOffice::getOfficeId, office.getParentId()));
+        office.setParentName(ObjectUtil.isNotNull(parentOffice) ? parentOffice.getOfficeName() : null);
+        return office;
     }
 
     /**
      * 通过部门ID查询部门名称
      *
-     * @param deptIds 部门ID串逗号分隔
+     * @param officeIds 部门ID串逗号分隔
      * @return 部门名称串逗号分隔
      */
     @Override
-    public String selectOfficeNameByIds(String deptIds) {
+    public String selectOfficeNameByIds(String officeIds) {
         List<String> list = new ArrayList<>();
-        for (Long id : StringUtils.splitTo(deptIds, Convert::toLong)) {
-            SysOffice dept = SpringUtils.getAopProxy(this).selectOfficeById(id);
-            if (ObjectUtil.isNotNull(dept)) {
-                list.add(dept.getOfficeName());
+        for (Long id : StringUtils.splitTo(officeIds, Convert::toLong)) {
+            SysOffice office = SpringUtils.getAopProxy(this).selectOfficeById(id);
+            if (ObjectUtil.isNotNull(office)) {
+                list.add(office.getOfficeName());
             }
         }
         return String.join(StringUtils.SEPARATOR, list);
@@ -146,67 +146,67 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 根据ID查询所有子部门数（正常状态）
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 子部门数
      */
     @Override
-    public long selectNormalChildrenOfficeById(Long deptId) {
+    public long selectNormalChildrenOfficeById(Long officeId) {
         return baseMapper.selectCount(new LambdaQueryWrapper<SysOffice>()
             .eq(SysOffice::getStatus, UserConstants.DEPT_NORMAL)
-            .apply(DataBaseHelper.findInSet(deptId, "ancestors")));
+            .apply(DataBaseHelper.findInSet(officeId, "ancestors")));
     }
 
     /**
      * 是否存在子节点
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果
      */
     @Override
-    public boolean hasChildByOfficeId(Long deptId) {
+    public boolean hasChildByOfficeId(Long officeId) {
         return baseMapper.exists(new LambdaQueryWrapper<SysOffice>()
-            .eq(SysOffice::getParentId, deptId));
+            .eq(SysOffice::getParentId, officeId));
     }
 
     /**
      * 查询部门是否存在用户
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果 true 存在 false 不存在
      */
     @Override
-    public boolean checkOfficeExistUser(Long deptId) {
+    public boolean checkOfficeExistUser(Long officeId) {
         return userMapper.exists(new LambdaQueryWrapper<SysUser>()
-            .eq(SysUser::getOfficeId, deptId));
+            .eq(SysUser::getOfficeId, officeId));
     }
 
     /**
      * 校验部门名称是否唯一
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
     @Override
-    public boolean checkOfficeNameUnique(SysOffice dept) {
+    public boolean checkOfficeNameUnique(SysOffice office) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysOffice>()
-            .eq(SysOffice::getOfficeName, dept.getOfficeName())
-            .eq(SysOffice::getParentId, dept.getParentId())
-            .ne(ObjectUtil.isNotNull(dept.getOfficeId()), SysOffice::getOfficeId, dept.getOfficeId()));
+            .eq(SysOffice::getOfficeName, office.getOfficeName())
+            .eq(SysOffice::getParentId, office.getParentId())
+            .ne(ObjectUtil.isNotNull(office.getOfficeId()), SysOffice::getOfficeId, office.getOfficeId()));
         return !exist;
     }
 
     /**
      * 校验部门是否有数据权限
      *
-     * @param deptId 部门id
+     * @param officeId 部门id
      */
     @Override
-    public void checkOfficeDataScope(Long deptId) {
+    public void checkOfficeDataScope(Long officeId) {
         if (!LoginHelper.isAdmin()) {
-            SysOffice dept = new SysOffice();
-            dept.setOfficeId(deptId);
-            List<SysOffice> depts = this.selectOfficeList(dept);
-            if (CollUtil.isEmpty(depts)) {
+            SysOffice office = new SysOffice();
+            office.setOfficeId(officeId);
+            List<SysOffice> offices = this.selectOfficeList(office);
+            if (CollUtil.isEmpty(offices)) {
                 throw new ServiceException("没有权限访问部门数据！");
             }
         }
@@ -215,42 +215,42 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 新增保存部门信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
     @Override
-    public int insertOffice(SysOffice dept) {
-        SysOffice info = baseMapper.selectById(dept.getParentId());
+    public int insertOffice(SysOffice office) {
+        SysOffice info = baseMapper.selectById(office.getParentId());
         // 如果父节点不为正常状态,则不允许新增子节点
         if (!UserConstants.DEPT_NORMAL.equals(info.getStatus())) {
             throw new ServiceException("部门停用，不允许新增");
         }
-        dept.setAncestors(info.getAncestors() + StringUtils.SEPARATOR + dept.getParentId());
-        return baseMapper.insert(dept);
+        office.setAncestors(info.getAncestors() + StringUtils.SEPARATOR + office.getParentId());
+        return baseMapper.insert(office);
     }
 
     /**
      * 修改保存部门信息
      *
-     * @param dept 部门信息
+     * @param office 部门信息
      * @return 结果
      */
-    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#dept.deptId")
+    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#office.officeId")
     @Override
-    public int updateOffice(SysOffice dept) {
-        SysOffice newParentOffice = baseMapper.selectById(dept.getParentId());
-        SysOffice oldOffice = baseMapper.selectById(dept.getOfficeId());
+    public int updateOffice(SysOffice office) {
+        SysOffice newParentOffice = baseMapper.selectById(office.getParentId());
+        SysOffice oldOffice = baseMapper.selectById(office.getOfficeId());
         if (ObjectUtil.isNotNull(newParentOffice) && ObjectUtil.isNotNull(oldOffice)) {
             String newAncestors = newParentOffice.getAncestors() + StringUtils.SEPARATOR + newParentOffice.getOfficeId();
             String oldAncestors = oldOffice.getAncestors();
-            dept.setAncestors(newAncestors);
-            updateOfficeChildren(dept.getOfficeId(), newAncestors, oldAncestors);
+            office.setAncestors(newAncestors);
+            updateOfficeChildren(office.getOfficeId(), newAncestors, oldAncestors);
         }
-        int result = baseMapper.updateById(dept);
-        if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()) && StringUtils.isNotEmpty(dept.getAncestors())
-            && !StringUtils.equals(UserConstants.DEPT_NORMAL, dept.getAncestors())) {
+        int result = baseMapper.updateById(office);
+        if (UserConstants.DEPT_NORMAL.equals(office.getStatus()) && StringUtils.isNotEmpty(office.getAncestors())
+            && !StringUtils.equals(UserConstants.DEPT_NORMAL, office.getAncestors())) {
             // 如果该部门是启用状态，则启用该部门的所有上级部门
-            updateParentOfficeStatusNormal(dept);
+            updateParentOfficeStatusNormal(office);
         }
         return result;
     }
@@ -258,36 +258,36 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 修改该部门的父级部门状态
      *
-     * @param dept 当前部门
+     * @param office 当前部门
      */
-    private void updateParentOfficeStatusNormal(SysOffice dept) {
-        String ancestors = dept.getAncestors();
-        Long[] deptIds = Convert.toLongArray(ancestors);
+    private void updateParentOfficeStatusNormal(SysOffice office) {
+        String ancestors = office.getAncestors();
+        Long[] officeIds = Convert.toLongArray(ancestors);
         baseMapper.update(null, new LambdaUpdateWrapper<SysOffice>()
             .set(SysOffice::getStatus, UserConstants.DEPT_NORMAL)
-            .in(SysOffice::getOfficeId, Arrays.asList(deptIds)));
+            .in(SysOffice::getOfficeId, Arrays.asList(officeIds)));
     }
 
     /**
      * 修改子元素关系
      *
-     * @param deptId       被修改的部门ID
+     * @param officeId       被修改的部门ID
      * @param newAncestors 新的父ID集合
      * @param oldAncestors 旧的父ID集合
      */
-    public void updateOfficeChildren(Long deptId, String newAncestors, String oldAncestors) {
+    public void updateOfficeChildren(Long officeId, String newAncestors, String oldAncestors) {
         List<SysOffice> children = baseMapper.selectList(new LambdaQueryWrapper<SysOffice>()
-            .apply(DataBaseHelper.findInSet(deptId, "ancestors")));
+            .apply(DataBaseHelper.findInSet(officeId, "ancestors")));
         List<SysOffice> list = new ArrayList<>();
         for (SysOffice child : children) {
-            SysOffice dept = new SysOffice();
-            dept.setOfficeId(child.getOfficeId());
-            dept.setAncestors(child.getAncestors().replaceFirst(oldAncestors, newAncestors));
-            list.add(dept);
+            SysOffice office = new SysOffice();
+            office.setOfficeId(child.getOfficeId());
+            office.setAncestors(child.getAncestors().replaceFirst(oldAncestors, newAncestors));
+            list.add(office);
         }
         if (CollUtil.isNotEmpty(list)) {
             if (baseMapper.updateBatchById(list)) {
-                list.forEach(dept -> CacheUtils.evict(CacheNames.SYS_DEPT, dept.getOfficeId()));
+                list.forEach(office -> CacheUtils.evict(CacheNames.SYS_DEPT, office.getOfficeId()));
             }
         }
     }
@@ -295,13 +295,13 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     /**
      * 删除部门管理信息
      *
-     * @param deptId 部门ID
+     * @param officeId 部门ID
      * @return 结果
      */
-    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#deptId")
+    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#officeId")
     @Override
-    public int deleteOfficeById(Long deptId) {
-        return baseMapper.deleteById(deptId);
+    public int deleteOfficeById(Long officeId) {
+        return baseMapper.deleteById(officeId);
     }
 
 }

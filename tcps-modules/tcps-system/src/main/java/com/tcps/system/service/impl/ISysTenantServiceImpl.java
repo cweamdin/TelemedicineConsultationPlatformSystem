@@ -4,7 +4,6 @@ package com.tcps.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-
 import com.tcps.common.constant.CacheNames;
 import com.tcps.common.core.domain.vo.request.RegisterRequest;
 import com.tcps.common.enums.UserType;

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tcps.common.core.domain.BaseEntity;
+import com.tcps.common.core.domain.entity.SysTenant;
+import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,9 +16,10 @@ import lombok.EqualsAndHashCode;
  * @author Tao Guang
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("sys_tenant")
-public class SysTenantVo extends BaseEntity {
+@AutoMapper(target = SysTenant.class)
+public class SysTenantVo implements java.io.Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * id

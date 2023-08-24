@@ -16,7 +16,7 @@ import com.tcps.common.helper.LoginHelper;
 import com.tcps.common.helper.TenantHelper;
 import com.tcps.common.utils.StreamUtils;
 import com.tcps.system.domain.vo.RouterVo;
-import com.tcps.system.domain.vo.SysTenantVo;
+import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.service.ISysMenuService;
 import com.tcps.system.service.ISysUserService;
 import com.tcps.common.core.domain.vo.response.LoginTenantResponse;

@@ -1,4 +1,4 @@
-package com.tcps.system.domain.vo;
+package com.tcps.common.core.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;

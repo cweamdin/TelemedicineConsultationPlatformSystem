@@ -1,5 +1,4 @@
 package com.tcps.common.core.domain.vo.response;
-
 import com.tcps.common.core.domain.vo.SysTenantVo;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;

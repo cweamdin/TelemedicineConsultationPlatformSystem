@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * 部门表 sys_coffice
+ * 机构表 sys_coffice
  *
  * @author Tao Guang
  */

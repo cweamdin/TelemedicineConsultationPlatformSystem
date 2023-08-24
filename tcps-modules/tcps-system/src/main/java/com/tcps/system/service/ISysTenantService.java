@@ -17,4 +17,11 @@ public interface ISysTenantService {
     SysTenantVo queryByTenantId(String tenantId);
 
     List<SysTenantVo> queryList(SysTenantBo sysTenantBo);
+
+
+    /**
+     * * 医院开户
+     * @param sysTenantVo
+     */
+    void insertTenant(SysTenantVo sysTenantVo);
 }

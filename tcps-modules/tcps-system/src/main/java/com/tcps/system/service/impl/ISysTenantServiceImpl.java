@@ -2,12 +2,11 @@ package com.tcps.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.tcps.common.constant.CacheNames;
 import com.tcps.common.core.domain.entity.SysTenant;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.bo.SysTenantBo;
-import com.tcps.system.domain.vo.SysTenantVo;
+import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.mapper.SysTenantMapper;
 import com.tcps.system.service.ISysTenantService;
 import lombok.RequiredArgsConstructor;

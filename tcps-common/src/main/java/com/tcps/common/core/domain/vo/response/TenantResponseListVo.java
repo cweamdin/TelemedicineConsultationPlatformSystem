@@ -1,6 +1,6 @@
 package com.tcps.common.core.domain.vo.response;
 
-import com.tcps.system.domain.vo.SysTenantVo;
+import com.tcps.common.core.domain.vo.SysTenantVo;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
 
@@ -11,7 +11,9 @@ import lombok.Data;
  */
 @Data
 @AutoMapper(target = SysTenantVo.class)
-public class TenantResponseListVo {
+public class TenantResponseListVo implements java.io.Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 租户id

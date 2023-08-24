@@ -1,4 +1,4 @@
-package com.tcps.system.domain.vo;
+package com.tcps.common.core.domain.vo;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;

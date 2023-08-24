@@ -1,7 +1,7 @@
 package com.tcps.system.service;
 
 import com.tcps.system.domain.bo.SysTenantBo;
-import com.tcps.system.domain.vo.SysTenantVo;
+import com.tcps.common.core.domain.vo.SysTenantVo;
 
 import java.util.List;
 

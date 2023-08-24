@@ -17,6 +17,7 @@ import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
 import com.tcps.system.service.SysPermissionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

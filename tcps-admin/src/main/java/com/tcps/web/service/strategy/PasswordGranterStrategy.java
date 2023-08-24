@@ -68,7 +68,7 @@ public class PasswordGranterStrategy extends AbstractLoginGranterStrategy {
 
         SysUserVo user = loadLoginBody(tenantId, username);
         // 校验密码
-        loginService.checkLogin(getLoginTypeEnum(), tenantId, password, () -> !BCrypt.checkpw(password, user.getPassword()));
+        loginService.checkLogin(getLoginTypeEnum(), tenantId, username, () -> !BCrypt.checkpw(password, user.getPassword()));
 
         LoginUser loginUser = loginService.buildLoginUserInfo(user);
         // 生成token

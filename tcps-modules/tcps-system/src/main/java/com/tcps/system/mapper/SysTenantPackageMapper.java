@@ -3,7 +3,7 @@ package com.tcps.system.mapper;
 
 import com.tcps.common.core.domain.entity.SysTenantPackage;
 import com.tcps.common.core.mapper.BaseMapperPlus;
-import com.tcps.system.domain.vo.SysTenantPackageVo;
+import com.tcps.common.core.domain.vo.SysTenantPackageVo;
 
 /**
  * 租户套餐Mapper接口

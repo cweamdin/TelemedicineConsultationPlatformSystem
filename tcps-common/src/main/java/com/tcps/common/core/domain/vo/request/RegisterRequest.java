@@ -1,4 +1,4 @@
-package com.tcps.web.domain.vo.request;
+package com.tcps.common.core.domain.vo.request;
 
 import com.tcps.common.core.domain.vo.request.LoginRequest;
 import lombok.Data;

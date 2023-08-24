@@ -4,12 +4,12 @@ import cn.dev33.satoken.secure.BCrypt;
 import com.tcps.common.constant.Constants;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.domain.event.LogininforEvent;
+import com.tcps.common.core.domain.vo.request.RegisterRequest;
 import com.tcps.common.enums.UserType;
 import com.tcps.common.exception.user.UserException;
 import com.tcps.common.utils.MessageUtils;
 import com.tcps.common.utils.ServletUtils;
 import com.tcps.common.utils.spring.SpringUtils;
-import com.tcps.web.domain.vo.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

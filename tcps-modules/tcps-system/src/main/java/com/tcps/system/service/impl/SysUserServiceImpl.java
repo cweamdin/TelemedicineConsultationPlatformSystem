@@ -77,12 +77,10 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         Map<String, Object> params = user.getParams();
         QueryWrapper<SysUser> wrapper = Wrappers.query();
         wrapper.eq("u.del_flag", UserConstants.USER_NORMAL)
-            .eq(ObjectUtil.isNotNull(user.getUserId()), "u.user_id", user.getUserId())
             .like(StringUtils.isNotBlank(user.getUserName()), "u.user_name", user.getUserName())
-            .eq(StringUtils.isNotBlank(user.getStatus()), "u.status", user.getStatus())
-            .like(StringUtils.isNotBlank(user.getPhone()), "u.phone", user.getPhone())
-            .between(params.get("beginTime") != null && params.get("endTime") != null,
-                "u.create_time", params.get("beginTime"), params.get("endTime"))
+            .like(StringUtils.isNotBlank(user.getName()), "u.name", user.getName())
+            .eq(ObjectUtil.isNotNull(user.getOfficeId()), "u.office_id", user.getOfficeId())
+            .eq(ObjectUtil.isNotNull(user.getCompanyId()), "u.company_id", user.getCompanyId())
             .and(ObjectUtil.isNotNull(user.getOfficeId()), w -> {
                 List<SysOffice> officeList = officeMapper.selectList(new LambdaQueryWrapper<SysOffice>()
                     .select(SysOffice::getOfficeId)

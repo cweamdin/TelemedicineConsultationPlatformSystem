@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SysTenantController {
 
-    private ISysTenantService iSysTenantService;
+    private final ISysTenantService iSysTenantService;
 
     @PostMapping("/createTenant")
     public R<Void> createTenant(@RequestBody SysTenantVo sysTenantVo){

@@ -24,7 +24,6 @@ import com.tcps.system.domain.vo.SysUserExportVo;
 import com.tcps.system.domain.vo.SysUserImportVo;
 import com.tcps.system.listener.SysUserImportListener;
 import com.tcps.system.service.ISysOfficeService;
-import com.tcps.system.service.ISysPostService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,6 @@ public class SysUserController extends BaseController {
 
     private final ISysUserService userService;
     private final ISysRoleService roleService;
-    private final ISysPostService postService;
     private final ISysOfficeService officeService;
 
     /**
@@ -64,47 +62,6 @@ public class SysUserController extends BaseController {
         return userService.selectPageUserList(user, pageQuery);
     }
 
-    /**
-     * 导出用户列表
-     */
-    @Log(title = "用户管理", businessType = BusinessType.EXPORT)
-    @SaCheckPermission("system:user:export")
-    @PostMapping("/export")
-    public void export(SysUser user, HttpServletResponse response) {
-        List<SysUser> list = userService.selectUserList(user);
-        List<SysUserExportVo> listVo = BeanUtil.copyToList(list, SysUserExportVo.class);
-        for (int i = 0; i < list.size(); i++) {
-            SysOffice office = list.get(i).getOffice();
-            SysUserExportVo vo = listVo.get(i);
-            if (ObjectUtil.isNotEmpty(office)) {
-                vo.setOfficeName(office.getOfficeName());
-                vo.setLeader("");
-            }
-        }
-        ExcelUtil.exportExcel(listVo, "用户数据", SysUserExportVo.class, response);
-    }
-
-    /**
-     * 导入数据
-     *
-     * @param file          导入文件
-     * @param updateSupport 是否更新已存在数据
-     */
-    @Log(title = "用户管理", businessType = BusinessType.IMPORT)
-    @SaCheckPermission("system:user:import")
-    @PostMapping(value = "/importData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<Void> importData(@RequestPart("file") MultipartFile file, boolean updateSupport) throws Exception {
-        ExcelResult<SysUserImportVo> result = ExcelUtil.importExcel(file.getInputStream(), SysUserImportVo.class, new SysUserImportListener(updateSupport));
-        return R.ok(result.getAnalysis());
-    }
-
-    /**
-     * 获取导入模板
-     */
-    @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response) {
-        ExcelUtil.exportExcel(new ArrayList<>(), "用户数据", SysUserImportVo.class, response);
-    }
 
     /**
      * 根据用户编号获取详细信息
@@ -118,11 +75,9 @@ public class SysUserController extends BaseController {
         Map<String, Object> ajax = new HashMap<>();
         List<SysRole> roles = roleService.selectRoleAll();
         ajax.put("roles", LoginHelper.isAdmin(userId) ? roles : StreamUtils.filter(roles, r -> !r.isAdmin()));
-        ajax.put("posts", postService.selectPostAll());
         if (ObjectUtil.isNotNull(userId)) {
             SysUser sysUser = userService.selectUserById(userId);
             ajax.put("user", sysUser);
-            ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", StreamUtils.toList(sysUser.getRoles(), SysRole::getRoleId));
         }
         return R.ok(ajax);

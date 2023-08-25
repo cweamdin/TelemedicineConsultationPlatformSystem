@@ -53,7 +53,6 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     private final SysUserMapper baseMapper;
     private final SysOfficeMapper officeMapper;
     private final SysRoleMapper roleMapper;
-    private final SysPostMapper postMapper;
     private final SysUserRoleMapper userRoleMapper;
     private final SysUserPostMapper userPostMapper;
 
@@ -180,21 +179,6 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             return StringUtils.EMPTY;
         }
         return StreamUtils.join(list, SysRole::getRoleName);
-    }
-
-    /**
-     * 查询用户所属岗位组
-     *
-     * @param userName 用户名
-     * @return 结果
-     */
-    @Override
-    public String selectUserPostGroup(String userName) {
-        List<SysPost> list = postMapper.selectPostsByUserName(userName);
-        if (CollUtil.isEmpty(list)) {
-            return StringUtils.EMPTY;
-        }
-        return StreamUtils.join(list, SysPost::getPostName);
     }
 
     /**

@@ -11,6 +11,7 @@ import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.bo.SysTenantBo;
 import com.tcps.common.core.domain.vo.SysTenantVo;
+import com.tcps.system.mapper.SysOfficeMapper;
 import com.tcps.system.mapper.SysTenantMapper;
 import com.tcps.system.mapper.SysUserMapper;
 import com.tcps.system.service.ISysTenantService;

@@ -24,7 +24,6 @@ import com.tcps.system.domain.vo.SysUserExportVo;
 import com.tcps.system.domain.vo.SysUserImportVo;
 import com.tcps.system.listener.SysUserImportListener;
 import com.tcps.system.service.ISysOfficeService;
-import com.tcps.system.service.ISysPostService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +51,6 @@ public class SysUserController extends BaseController {
 
     private final ISysUserService userService;
     private final ISysRoleService roleService;
-    private final ISysPostService postService;
     private final ISysOfficeService officeService;
 
     /**
@@ -118,11 +116,9 @@ public class SysUserController extends BaseController {
         Map<String, Object> ajax = new HashMap<>();
         List<SysRole> roles = roleService.selectRoleAll();
         ajax.put("roles", LoginHelper.isAdmin(userId) ? roles : StreamUtils.filter(roles, r -> !r.isAdmin()));
-        ajax.put("posts", postService.selectPostAll());
         if (ObjectUtil.isNotNull(userId)) {
             SysUser sysUser = userService.selectUserById(userId);
             ajax.put("user", sysUser);
-            ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", StreamUtils.toList(sysUser.getRoles(), SysRole::getRoleId));
         }
         return R.ok(ajax);

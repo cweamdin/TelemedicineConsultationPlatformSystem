@@ -2,6 +2,7 @@ package com.tcps.common.core.page;
 
 import cn.hutool.http.HttpStatus;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tcps.common.helper.LoginHelper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,6 +39,11 @@ public class TableDataInfo<T> implements Serializable {
      * 消息内容
      */
     private String msg;
+
+    /**
+     * 每页显示记录数
+     */
+    private int pageSize = 10;
 
     /**
      * 分页

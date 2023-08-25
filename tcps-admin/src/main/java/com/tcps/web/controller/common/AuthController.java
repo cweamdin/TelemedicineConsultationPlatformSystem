@@ -6,7 +6,9 @@ import com.tcps.common.core.domain.R;
 import com.tcps.common.core.domain.entity.SysMenu;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.domain.model.LoginUser;
-import com.tcps.common.core.domain.vo.request.RegisterRequest;
+import com.tcps.common.core.domain.vo.SysTenantVo;
+import com.tcps.common.core.domain.vo.response.LoginTenantResponse;
+import com.tcps.common.core.domain.vo.response.TenantResponseListVo;
 import com.tcps.common.utils.MapstructUtils;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.bo.SysTenantBo;
@@ -17,12 +19,8 @@ import com.tcps.common.helper.LoginHelper;
 import com.tcps.common.helper.TenantHelper;
 import com.tcps.common.utils.StreamUtils;
 import com.tcps.system.domain.vo.RouterVo;
-import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.service.ISysMenuService;
 import com.tcps.system.service.ISysUserService;
-import com.tcps.common.core.domain.vo.response.LoginTenantResponse;
-import com.tcps.common.core.domain.vo.response.TenantResponseListVo;
-import com.tcps.system.service.SysRegisterService;
 import com.tcps.web.service.factory.LoginGranterFactory;
 import com.tcps.web.service.strategy.AbstractLoginGranterStrategy;
 import com.tcps.web.service.SysLoginService;
@@ -55,7 +53,6 @@ public class AuthController {
     private final ISysMenuService menuService;
     private final ISysUserService userService;
     private final ISysTenantService tenantService;
-    private final SysRegisterService registerService;
 
 
     /**
@@ -65,7 +62,9 @@ public class AuthController {
      */
     @PostMapping("/login")
     public R<LoginResponse> Login(@Validated @RequestBody LoginRequest loginRequest) {
+
         // todo 多端实现登录
+
         // 校验租户
         loginService.checkTenant(loginRequest.getTenantId());
         // 登录逻辑
@@ -138,16 +137,6 @@ public class AuthController {
         vo.setVoList(CollUtil.isNotEmpty(list) ? list : voList);
         vo.setTenantEnabled(TenantHelper.isEnable());
         return R.ok(vo);
-    }
-
-    /**
-     * 注册用户
-     */
-    @PostMapping("/register")
-    public R<Void> register(@RequestBody RegisterRequest registerRequest) {
-        // 注册用户
-        registerService.register(registerRequest);
-        return R.ok("注册成功");
     }
 
 

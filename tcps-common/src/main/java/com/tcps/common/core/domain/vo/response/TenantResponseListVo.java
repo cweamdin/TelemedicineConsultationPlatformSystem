@@ -11,9 +11,7 @@ import lombok.Data;
  */
 @Data
 @AutoMapper(target = SysTenantVo.class)
-public class TenantResponseListVo implements java.io.Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class TenantResponseListVo {
 
     /**
      * 租户id

@@ -18,11 +18,11 @@ public @interface DataColumn {
     /**
      * 占位符关键字
      */
-    String[] key() default "deptName";
+    String[] key() default "officeName";
 
     /**
      * 占位符替换值
      */
-    String[] value() default "dept_id";
+    String[] value() default "office_id";
 
 }

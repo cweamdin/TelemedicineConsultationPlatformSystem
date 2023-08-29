@@ -1,23 +1,26 @@
 package com.tcps.system.service.impl;
 
 
+import cn.dev33.satoken.secure.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tcps.common.constant.CacheNames;
 import com.tcps.common.core.domain.entity.SysRole;
+import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.domain.vo.request.RegisterRequest;
 import com.tcps.common.enums.RoleType;
+import com.tcps.common.enums.UserStatus;
 import com.tcps.common.enums.UserType;
-import com.tcps.common.core.domain.entity.SysTenant;
 import com.tcps.common.utils.StringUtils;
+import com.tcps.system.domain.SysUserRole;
 import com.tcps.system.domain.bo.SysTenantBo;
 import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.mapper.SysOfficeMapper;
 import com.tcps.system.mapper.SysRoleMapper;
 import com.tcps.system.mapper.SysTenantMapper;
+import com.tcps.system.mapper.SysUserMapper;
 import com.tcps.system.mapper.SysUserRoleMapper;
-import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysTenantService;
 import com.tcps.system.service.SysRegisterService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +42,7 @@ public class ISysTenantServiceImpl implements ISysTenantService {
 
     private final SysTenantMapper baseMapper;
 
-    private final SysRegisterService sysRegisterService;
+    private final SysUserMapper sysUserMapper;
 
     private final SysRoleMapper sysRoleMapper;
 
@@ -74,13 +77,13 @@ public class ISysTenantServiceImpl implements ISysTenantService {
         }
         baseMapper.insert(sysTenant);
         //注册医院账户
-        RegisterRequest request=new RegisterRequest();
-        request.setUserType(UserType.HOSPITAL_USER.getUserType());
-        request.setTenantId(sysTenant.getTenantId());
-        request.setUsername("Sysadmin");
-        request.setGrantType(1);
-        request.setPassword("123456");
-        sysRegisterService.register(request);
+        SysUser sysUser=new SysUser();
+        sysUser.setTenantId(sysTenant.getTenantId());
+        sysUser.setUserName(sysTenant.getCompanyName()+"admin");
+        sysUser.setUserType(UserType.SYS_USER.getUserType());
+        sysUser.setPassword(BCrypt.hashpw("123456"));
+        sysUser.setStatus(UserStatus.OK.getCode());
+        sysUserMapper.insert(sysUser);
         //给医院账户绑定角色
         SysRole sysRole=new SysRole();
         sysRole.setTenantId(sysTenant.getTenantId());
@@ -97,6 +100,9 @@ public class ISysTenantServiceImpl implements ISysTenantService {
         sysRole.setUpdateTime(new Date()) ;
         sysRoleMapper.insert(sysRole);
         //todo 后续拿到角色和用户id进行关联
+        Long roleId = sysRole.getRoleId();
+        Long userId = sysUser.getUserId();
+        sysUserRoleMapper.insert(new SysUserRole(userId,roleId));
     }
 
     private LambdaQueryWrapper<SysTenant> buildQueryWrapper(SysTenantBo bo) {

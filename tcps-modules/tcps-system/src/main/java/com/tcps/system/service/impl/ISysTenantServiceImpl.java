@@ -1,19 +1,22 @@
 package com.tcps.system.service.impl;
 
-import cn.dev33.satoken.secure.BCrypt;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tcps.common.constant.CacheNames;
-import com.tcps.common.core.domain.entity.SysOffice;
+import com.tcps.common.core.domain.entity.SysRole;
+import com.tcps.common.core.domain.vo.request.RegisterRequest;
+import com.tcps.common.enums.RoleType;
+import com.tcps.common.enums.UserType;
 import com.tcps.common.core.domain.entity.SysTenant;
-import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.bo.SysTenantBo;
 import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.mapper.SysOfficeMapper;
 import com.tcps.system.mapper.SysTenantMapper;
-import com.tcps.system.mapper.SysUserMapper;
+import com.tcps.system.mapper.SysUserRoleMapper;
+import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysTenantService;
 import com.tcps.system.service.SysRegisterService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +25,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -36,11 +38,11 @@ public class ISysTenantServiceImpl implements ISysTenantService {
 
     private final SysTenantMapper baseMapper;
 
-//    private final SysUserMapper userMapper;
-
     private final SysRegisterService sysRegisterService;
 
-    private final SysOfficeMapper sysOfficeMapper;
+    private final SysRoleMapper sysRoleMapper;
+
+    private final SysUserRoleMapper sysUserRoleMapper;
 
     /**
      * 基于租户ID查询租户并缓存
@@ -62,28 +64,38 @@ public class ISysTenantServiceImpl implements ISysTenantService {
     @Transactional
     @Override
     public void insertTenant(SysTenantVo sysTenantVo) {
+        //医院开户
         SysTenant sysTenant=new SysTenant();
         BeanUtils.copyProperties(sysTenantVo,sysTenant);
+        sysTenant.setTenantId(getTenantId());
         if(sysTenant.getAccountCount()==null){
             sysTenant.setAccountCount(5L);
         }
-//        sysTenant.setTenantId(getTenantId());
-//        baseMapper.insert(sysTenant);
-//
-//        SysUser sysUser =new SysUser();
-//        sysUser.setTenantId(sysTenant.getTenantId());
-//        sysUser.setCompanyId(sysTenant.getId());
-//        sysUser.setUserName("Sysadmin");
-//        sysUser.setName("超级管理员");
-//        sysUser.setPassword(BCrypt.hashpw("123456"));
-//        sysUser.setStatus("0");
-//        sysUser.setUserType("医院");
-//        sysTenant.setCreateBy("admin");
-//        sysUser.setCreateTime(new Date());
-//        sysUser.setUpdateBy("admin");
-//        sysUser.setUpdateTime( new Date());
-//        userMapper.insert(sysUser);
-
+        baseMapper.insert(sysTenant);
+        //注册医院账户
+        RegisterRequest request=new RegisterRequest();
+        request.setUserType(UserType.HOSPITAL_USER.getUserType());
+        request.setTenantId(sysTenant.getTenantId());
+        request.setUsername("Sysadmin");
+        request.setGrantType(1);
+        request.setPassword("123456");
+        sysRegisterService.register(request);
+        //给医院账户绑定角色
+        SysRole sysRole=new SysRole();
+        sysRole.setTenantId(sysTenant.getTenantId());
+        sysRole.setRoleName(RoleType.Hospital_Management_Role.getRoleName());
+        sysRole.setRoleEnName(RoleType.Hospital_Management_Role.getRoleEName());
+        sysRole.setRoleKey(RoleType.Hospital_Management_Role.getRoleKey());
+        sysRole.setRoleSort(2);
+        sysRole.setRoleType(RoleType.Hospital_Management_Role.getRoleType());
+        sysRole.setStatus("0");
+        sysRole.setCreateBy("张三");
+        sysRole.setCreateTime(new Date());
+        //todo 后续和获取修改的用户
+        sysRole.setUpdateBy("张三");
+        sysRole.setUpdateTime(new Date()) ;
+        sysRoleMapper.insert(sysRole);
+        //todo 后续拿到角色和用户id进行关联
     }
 
     private LambdaQueryWrapper<SysTenant> buildQueryWrapper(SysTenantBo bo) {

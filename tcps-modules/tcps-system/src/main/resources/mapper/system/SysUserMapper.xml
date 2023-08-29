@@ -96,11 +96,31 @@
 <!--    </insert>-->
 
     <select id="selectPageUserList" resultMap="SysUserResult">
-        select u.user_id, u.office_id, u.name, u.user_name, u.email, u.avatar, u.phone,
-            u.status, u.del_flag, u.login_ip, u.login_time, u.create_by, u.create_time, u.remarks, d.office_name, d.primary_leader
+        select u.user_id,
+               u.company_id,
+               u.office_id,
+               u.user_name,
+               u.name,
+               u.user_type,
+               u.email,
+               u.avatar,
+               u.phone,
+               u.password,
+               u.status,
+               u.no,
+               u.job_name,
+               u.job_level,
+               u.del_flag,
+               u.login_ip,
+               u.login_time,
+               u.create_by,
+               u.create_time,
+               u.remarks,
+               d.office_name,
+               d.primary_leader
         from sys_user u
-            left join sys_office d on u.office_id = d.office_id
-        ${ew.getCustomSqlSegment}
+                 left join sys_office d on u.office_id = d.office_id
+            ${ew.getCustomSqlSegment}
     </select>
 
     <select id="selectUserList" resultMap="SysUserResult">

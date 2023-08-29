@@ -48,7 +48,6 @@ public class SysProfileController extends BaseController {
         Map<String, Object> ajax = new HashMap<>();
         ajax.put("user", user);
         ajax.put("roleGroup", userService.selectUserRoleGroup(user.getUserName()));
-        ajax.put("postGroup", userService.selectUserPostGroup(user.getUserName()));
         return R.ok(ajax);
     }
 

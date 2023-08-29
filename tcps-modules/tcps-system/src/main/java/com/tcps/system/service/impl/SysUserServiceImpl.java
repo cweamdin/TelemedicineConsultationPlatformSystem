@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,13 +54,20 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     private final SysUserMapper baseMapper;
     private final SysOfficeMapper officeMapper;
     private final SysRoleMapper roleMapper;
-    private final SysPostMapper postMapper;
     private final SysUserRoleMapper userRoleMapper;
     private final SysUserPostMapper userPostMapper;
 
     @Override
     public TableDataInfo<SysUser> selectPageUserList(SysUser user, PageQuery pageQuery) {
         Page<SysUser> page = baseMapper.selectPageUserList(pageQuery.build(), this.buildQueryWrapper(user));
+        List<SysUser> records = page.getRecords();
+        for (SysUser sysUser : records) {
+            SysOffice companyInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getCompanyId()));
+            SysOffice officeInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getOfficeId()));
+            companyInfo.setChildren(Collections.singletonList(officeInfo));
+            sysUser.setOffice(companyInfo);
+        }
+        page.setRecords(records);
         return TableDataInfo.build(page);
     }
 
@@ -78,12 +86,10 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         Map<String, Object> params = user.getParams();
         QueryWrapper<SysUser> wrapper = Wrappers.query();
         wrapper.eq("u.del_flag", UserConstants.USER_NORMAL)
-            .eq(ObjectUtil.isNotNull(user.getUserId()), "u.user_id", user.getUserId())
             .like(StringUtils.isNotBlank(user.getUserName()), "u.user_name", user.getUserName())
-            .eq(StringUtils.isNotBlank(user.getStatus()), "u.status", user.getStatus())
-            .like(StringUtils.isNotBlank(user.getPhone()), "u.phone", user.getPhone())
-            .between(params.get("beginTime") != null && params.get("endTime") != null,
-                "u.create_time", params.get("beginTime"), params.get("endTime"))
+            .like(StringUtils.isNotBlank(user.getName()), "u.name", user.getName())
+            .eq(ObjectUtil.isNotNull(user.getOfficeId()), "u.office_id", user.getOfficeId())
+            .eq(ObjectUtil.isNotNull(user.getCompanyId()), "u.company_id", user.getCompanyId())
             .and(ObjectUtil.isNotNull(user.getOfficeId()), w -> {
                 List<SysOffice> officeList = officeMapper.selectList(new LambdaQueryWrapper<SysOffice>()
                     .select(SysOffice::getOfficeId)
@@ -180,21 +186,6 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             return StringUtils.EMPTY;
         }
         return StreamUtils.join(list, SysRole::getRoleName);
-    }
-
-    /**
-     * 查询用户所属岗位组
-     *
-     * @param userName 用户名
-     * @return 结果
-     */
-    @Override
-    public String selectUserPostGroup(String userName) {
-        List<SysPost> list = postMapper.selectPostsByUserName(userName);
-        if (CollUtil.isEmpty(list)) {
-            return StringUtils.EMPTY;
-        }
-        return StreamUtils.join(list, SysPost::getPostName);
     }
 
     /**

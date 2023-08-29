@@ -8,6 +8,7 @@ import com.tcps.common.constant.UserConstants;
 import com.tcps.common.core.domain.model.TenantEntity;
 import com.tcps.common.enums.SensitiveStrategy;
 import com.tcps.common.xss.Xss;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,12 +28,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@Schema(description = "用户 数据传输对象")
 @TableName("sys_user")
 public class SysUser extends TenantEntity {
 
     /**
      * 用户ID
      */
+    @Schema(description = "ID")
     @TableId(value = "user_id",type = IdType.AUTO)
     private Long userId;
 

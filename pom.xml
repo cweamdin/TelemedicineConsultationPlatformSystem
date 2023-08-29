@@ -36,6 +36,7 @@
         <xxl-job.version>2.4.0</xxl-job.version>
         <lombok.version>1.18.26</lombok.version>
         <bouncycastle.version>1.72</bouncycastle.version>
+        <knife4j.version>4.1.0</knife4j.version>
 
         <mapstruct-plus.version>1.2.5</mapstruct-plus.version>
         <mapstruct-plus.lombok.version>0.2.0</mapstruct-plus.lombok.version>
@@ -123,6 +124,8 @@
                 <artifactId>springdoc-openapi-javadoc</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
+
+
 
             <dependency>
                 <groupId>org.projectlombok</groupId>

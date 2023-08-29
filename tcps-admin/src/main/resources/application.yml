@@ -28,7 +28,7 @@ captcha:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8080
+  port: 8082
   servlet:
     # 应用的访问路径
     context-path: /
@@ -227,12 +227,8 @@ springdoc:
         name: ${sa-token.token-name}
   #这里定义了两个分组，可定义多个，也可以不定义
   group-configs:
-    - group: 1.演示模块
-      packages-to-scan: com.tcps.demo
-    - group: 2.系统模块
+    - group: 1.系统模块
       packages-to-scan: com.tcps.web
-    - group: 3.代码生成模块
-      packages-to-scan: com.tcps.generator
 
 # 防止XSS攻击
 xss:

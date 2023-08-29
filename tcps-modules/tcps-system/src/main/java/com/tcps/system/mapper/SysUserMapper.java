@@ -21,10 +21,12 @@ import java.util.List;
 public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, SysUserVo> {
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(key = "officeName", value = "d.office_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUser> selectPageUserList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
+
+//    List<String> getList();
 
     /**
      * 根据条件分页查询用户列表
@@ -33,7 +35,7 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(key = "officeName", value = "d.office_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     List<SysUser> selectUserList(@Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
@@ -45,7 +47,7 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(key = "officeName", value = "d.office_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUser> selectAllocatedList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
@@ -57,7 +59,7 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(key = "officeName", value = "d.office_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUser> selectUnallocatedList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);

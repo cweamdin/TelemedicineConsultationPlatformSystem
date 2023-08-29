@@ -1,6 +1,5 @@
 package com.tcps.system.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -16,7 +15,6 @@ import com.tcps.common.core.domain.PageQuery;
 import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
-import com.tcps.common.core.domain.vo.SysUserVo;
 import com.tcps.common.core.page.TableDataInfo;
 import com.tcps.common.core.service.UserService;
 import com.tcps.common.exception.ServiceException;
@@ -24,7 +22,6 @@ import com.tcps.common.helper.DataBaseHelper;
 import com.tcps.common.helper.LoginHelper;
 import com.tcps.common.utils.StreamUtils;
 import com.tcps.common.utils.StringUtils;
-import com.tcps.system.domain.SysPost;
 import com.tcps.system.domain.SysUserPost;
 import com.tcps.system.domain.SysUserRole;
 import com.tcps.system.mapper.*;

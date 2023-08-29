@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("sys_dept")
+@TableName("sys_office")
 public class SysOffice extends OfficeTreeEntity<SysOffice> {
     /**
      * 编号

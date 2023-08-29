@@ -104,4 +104,5 @@ public interface SysUserMapper extends BaseMapperPlus<SysUserMapper, SysUser, Sy
     @InterceptorIgnore(tenantLine = "true")
     SysUser selectTenantUserByUserName(@Param("userName") String userName, @Param("tenantId") String tenantId);
 
+//    Long insertInfo(SysUser user);
 }

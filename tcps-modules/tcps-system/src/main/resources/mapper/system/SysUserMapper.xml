@@ -111,7 +111,9 @@
                u.login_time,
                u.create_by,
                u.create_time,
-               u.remarks
+               u.remarks,
+               d.office_name,
+               d.primary_leader
         from sys_user u
                  left join sys_office d on u.office_id = d.office_id
             ${ew.getCustomSqlSegment}

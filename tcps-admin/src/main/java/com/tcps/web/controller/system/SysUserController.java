@@ -2,7 +2,6 @@ package com.tcps.web.controller.system;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.secure.BCrypt;
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -15,25 +14,18 @@ import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
 import com.tcps.common.core.page.TableDataInfo;
 import com.tcps.common.enums.BusinessType;
-import com.tcps.common.excel.ExcelResult;
 import com.tcps.common.helper.LoginHelper;
 import com.tcps.common.utils.StreamUtils;
 import com.tcps.common.utils.StringUtils;
-import com.tcps.common.utils.poi.ExcelUtil;
-import com.tcps.system.domain.vo.SysUserExportVo;
-import com.tcps.system.domain.vo.SysUserImportVo;
-import com.tcps.system.listener.SysUserImportListener;
 import com.tcps.system.service.ISysOfficeService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +35,7 @@ import java.util.Map;
  *
  * @author Lion Li
  */
+@Tag(name = "用户接口")
 @Validated
 @RequiredArgsConstructor
 @RestController
@@ -56,12 +49,12 @@ public class SysUserController extends BaseController {
     /**
      * 获取用户列表
      */
+    @Operation(summary = "分页查询")
     @SaCheckPermission("system:user:list")
     @GetMapping("/list")
     public TableDataInfo<SysUser> list(SysUser user, PageQuery pageQuery) {
         return userService.selectPageUserList(user, pageQuery);
     }
-
 
     /**
      * 根据用户编号获取详细信息

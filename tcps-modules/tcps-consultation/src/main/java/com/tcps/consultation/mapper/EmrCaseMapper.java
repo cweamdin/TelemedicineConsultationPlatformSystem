@@ -1,7 +1,7 @@
 package com.tcps.consultation.mapper;
 
 import com.tcps.common.core.mapper.BaseMapperPlus;
-import com.tcps.consultation.domin.EmrCase;
+import com.tcps.consultation.domain.EmrCase;
 
 /**
  * @author: 李太白

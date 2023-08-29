@@ -67,8 +67,8 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             SysOffice officeInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getOfficeId()));
             companyInfo.setChildren(Collections.singletonList(officeInfo));
             List<SysRole> sysRoles = sysRoleService.selectRolesByUserId(sysUser.getUserId());
-            Long[] roleIds = sysRoles.stream().map(SysRole::getRoleId).toArray(Long[]::new);
-
+            Long[] roleIds = sysRoles.stream().filter(SysRole::isFlag)
+                .map(SysRole::getRoleId).toArray(Long[]::new);
             sysUser.setRoleIds(roleIds);
             sysUser.setRoles(sysRoles);
             sysUser.setOffice(companyInfo);
@@ -76,8 +76,6 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         page.setRecords(records);
         return TableDataInfo.build(page);
     }
-
-
 
 
     /**
@@ -156,7 +154,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public SysUser selectUserByUserName(String userName) {
         SysUser user = new SysUser();
-        BeanUtils.copyProperties(baseMapper.selectUserByUserName(userName),user);
+        BeanUtils.copyProperties(baseMapper.selectUserByUserName(userName), user);
         return user;
     }
 

@@ -15,6 +15,8 @@ import com.tcps.common.enums.UserType;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.SysUserRole;
 import com.tcps.system.domain.bo.SysTenantBo;
+import com.tcps.common.core.domain.vo.SysTenantVo;
+import com.tcps.system.mapper.SysOfficeMapper;
 import com.tcps.system.mapper.SysRoleMapper;
 import com.tcps.system.mapper.SysTenantMapper;
 import com.tcps.system.mapper.SysUserMapper;

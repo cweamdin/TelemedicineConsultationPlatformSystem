@@ -24,7 +24,7 @@ public interface SysOfficeMapper extends BaseMapperPlus<SysOfficeMapper, SysOffi
      * @return 部门信息集合
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id")
+        @DataColumn(key = "officeName", value = "office_id")
     })
     List<SysOffice> selectOfficeList(@Param(Constants.WRAPPER) Wrapper<SysOffice> queryWrapper);
 
@@ -32,9 +32,9 @@ public interface SysOfficeMapper extends BaseMapperPlus<SysOfficeMapper, SysOffi
      * 根据角色ID查询部门树信息
      *
      * @param roleId            角色ID
-     * @param deptCheckStrictly 部门树选择项是否关联显示
+     * @param officeCheckStrictly 部门树选择项是否关联显示
      * @return 选中部门列表
      */
-    List<Long> selectOfficeListByRoleId(@Param("roleId") Long roleId, @Param("deptCheckStrictly") boolean deptCheckStrictly);
+    List<Long> selectOfficeListByRoleId(@Param("roleId") Long roleId, @Param("officeCheckStrictly") boolean officeCheckStrictly);
 
 }

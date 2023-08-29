@@ -1,5 +1,6 @@
 package com.tcps.web.controller.system;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.tcps.common.core.domain.R;
 import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.system.service.ISysTenantService;
@@ -21,6 +22,7 @@ public class SysTenantController {
     private final ISysTenantService iSysTenantService;
 
     @PostMapping("/createTenant")
+    @SaCheckPermission("siteuser:site:list")
     public R<Void> createTenant(@RequestBody SysTenantVo sysTenantVo){
         iSysTenantService.insertTenant(sysTenantVo);
         return R.ok();

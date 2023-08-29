@@ -25,6 +25,7 @@ import com.tcps.common.utils.StringUtils;
 import com.tcps.system.domain.SysUserPost;
 import com.tcps.system.domain.SysUserRole;
 import com.tcps.system.mapper.*;
+import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 用户 业务层处理
@@ -54,6 +56,8 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     private final SysUserRoleMapper userRoleMapper;
     private final SysUserPostMapper userPostMapper;
 
+    private final ISysRoleService sysRoleService;
+
     @Override
     public TableDataInfo<SysUser> selectPageUserList(SysUser user, PageQuery pageQuery) {
         Page<SysUser> page = baseMapper.selectPageUserList(pageQuery.build(), this.buildQueryWrapper(user));
@@ -62,11 +66,19 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             SysOffice companyInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getCompanyId()));
             SysOffice officeInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getOfficeId()));
             companyInfo.setChildren(Collections.singletonList(officeInfo));
+            List<SysRole> sysRoles = sysRoleService.selectRolesByUserId(sysUser.getUserId());
+            Long[] roleIds = sysRoles.stream().map(SysRole::getRoleId).toArray(Long[]::new);
+
+            sysUser.setRoleIds(roleIds);
+            sysUser.setRoles(sysRoles);
             sysUser.setOffice(companyInfo);
         }
         page.setRecords(records);
         return TableDataInfo.build(page);
     }
+
+
+
 
     /**
      * 根据条件分页查询用户列表

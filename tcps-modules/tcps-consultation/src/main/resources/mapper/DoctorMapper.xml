@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tcps.consultation.mapper.DoctorMapper">
+
+    <resultMap id="BaseResultMap" type="com.tcps.consultation.domain.bo.DoctorBo">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <id property="company" column="company" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="CHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="jobAge" column="job_age" jdbcType="INTEGER"/>
+            <result property="province" column="province" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="dist" column="dist" jdbcType="VARCHAR"/>
+            <result property="office" column="office" jdbcType="VARCHAR"/>
+            <result property="job" column="job" jdbcType="VARCHAR"/>
+            <result property="expert" column="expert" jdbcType="VARCHAR"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+            <result property="departId" column="depart_id" jdbcType="VARCHAR"/>
+            <result property="userType" column="user_type" jdbcType="CHAR"/>
+            <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="onLine" column="on_line" jdbcType="CHAR"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="dmcount" column="dmcount" jdbcType="INTEGER"/>
+            <result property="recommendId" column="recommend_id" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="auditBy" column="audit_by" jdbcType="VARCHAR"/>
+            <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="delFlag" column="del_flag" jdbcType="CHAR"/>
+            <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+ <!--   <resultMap id="ContractedDoctorVoMap" type="com.tcps.consultation.domain.vo.ContractedDoctorVo">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="company" column="company" jdbcType="VARCHAR"/>
+        <result property="office" column="office" jdbcType="VARCHAR"/>
+        <result property="job" column="job" jdbcType="VARCHAR"/>
+        <result property="expert" column="expert" jdbcType="VARCHAR"/>
+        <result property="onLine" column="on_line" jdbcType="VARCHAR"/>
+        <result property="dmcount" column="dmcount" jdbcType="VARCHAR"/>
+        <result property="dmcount" column="dmcount" jdbcType="INTEGER"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"
+    </resultMap>-->
+
+    <sql id="Base_Column_List">
+        id,company,name,
+        sex,age,phone,
+        email,job_age,province,
+        city,dist,office,
+        job,expert,introduce,
+        user_name,user_pwd,depart_id,
+        user_type,status,on_line,
+        price,dmcount,recommend_id,
+        sort,create_time,audit_by,
+        audit_time,remarks,del_flag,
+        tenant_id
+    </sql>
+    <select id="pageSelectDoctorList" parameterType="com.tcps.consultation.domain.bo.DoctorBo" resultMap="BaseResultMap">
+        SELECT `name`,phone,province,company,office,job,expert,dmcount,on_line,remarks from doctor
+        where 1=1
+            <if test="doctorBo.name!=null and doctorBo.name!=''">
+                AND `name` LIKE concat('%',#{doctorBo.name},'%')
+            </if>
+            <if test="doctorBo.phone!=null and doctorBo.phone!=''">
+                AND phone LIKE concat('%',#{doctorBo.phone},'%')
+            </if>
+            <if test="doctorBo.province!=null and doctorBo.province!=''">
+                AND province LIKE concat('%',#{doctorBo.province},'%')
+            </if>
+            <if test="doctorBo.expert!=null and doctorBo.expert!=''">
+                AND expert LIKE concat('%',#{doctorBo.expert},'%')
+            </if>
+            <if test="doctorBo.onLine!=null and doctorBo.onLine!=''">
+                AND on_line = #{doctorBo.onLine}
+            </if>
+    </select>
+</mapper>

@@ -90,6 +90,10 @@
             left join sys_user_role sur on u.user_id = sur.user_id
             left join sys_role r on r.role_id = sur.role_id
     </sql>
+<!--    <insert id="insertInfo">-->
+<!--        INSERT INTO `tcps_dev`.`sys_user` (`company_id`, `office_id`, `user_name`, `name`, `user_type`, `password`, `email`, `status`, `no`, `phone`, `job_name`, `job_level`, `avatar`, `create_by`, `create_time`, `update_by`, `update_time`, `remarks`, `del_flag`, `tenant_id`)-->
+<!--        VALUES (${companyId,${officeId},${userName},${name});-->
+<!--    </insert>-->
 
     <select id="selectPageUserList" resultMap="SysUserResult">
         select u.user_id,

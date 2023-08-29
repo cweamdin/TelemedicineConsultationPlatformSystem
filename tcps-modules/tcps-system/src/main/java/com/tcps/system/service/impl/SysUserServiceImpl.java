@@ -37,6 +37,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,14 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
     @Override
     public TableDataInfo<SysUser> selectPageUserList(SysUser user, PageQuery pageQuery) {
         Page<SysUser> page = baseMapper.selectPageUserList(pageQuery.build(), this.buildQueryWrapper(user));
+        List<SysUser> records = page.getRecords();
+        for (SysUser sysUser : records) {
+            SysOffice companyInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getCompanyId()));
+            SysOffice officeInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getOfficeId()));
+            companyInfo.setChildren(Collections.singletonList(officeInfo));
+            sysUser.setOffice(companyInfo);
+        }
+        page.setRecords(records);
         return TableDataInfo.build(page);
     }
 

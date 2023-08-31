@@ -9,6 +9,7 @@ import com.tcps.common.constant.CacheNames;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysTenant;
 import com.tcps.common.core.domain.entity.SysUser;
+import com.tcps.common.core.domain.vo.SysTenantVo;
 import com.tcps.common.core.domain.vo.request.RegisterRequest;
 import com.tcps.common.enums.RoleType;
 import com.tcps.common.enums.UserStatus;

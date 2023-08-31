@@ -1,6 +1,6 @@
-package com.tcps.consultation.domin;
+package com.tcps.consultation.domain;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

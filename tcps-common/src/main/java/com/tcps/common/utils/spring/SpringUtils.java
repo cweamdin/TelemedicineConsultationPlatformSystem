@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * spring工具类
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Component
 public final class SpringUtils extends SpringUtil {

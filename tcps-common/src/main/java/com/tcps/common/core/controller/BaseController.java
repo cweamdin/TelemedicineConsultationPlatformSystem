@@ -8,7 +8,7 @@ import com.tcps.common.utils.StringUtils;
 /**
  * web层通用数据处理
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public class BaseController {
 

@@ -8,8 +8,10 @@ import com.tcps.common.core.controller.BaseController;
 import com.tcps.common.core.domain.R;
 import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.vo.OfficeTreeSelectVo;
+import com.tcps.common.core.domain.vo.SysUserVo;
 import com.tcps.common.enums.BusinessType;
 import com.tcps.common.utils.StringUtils;
+import com.tcps.system.domain.vo.SysOfficeVo;
 import com.tcps.system.service.ISysOfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +24,7 @@ import java.util.Map;
 /**
  * 部门信息
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Validated
 @RequiredArgsConstructor

@@ -32,6 +32,11 @@ public class SysOffice extends OfficeTreeEntity<SysOffice> {
     private Long officeId;
 
     /**
+     * 机构编码
+     */
+    private String code;
+
+    /**
      * 名称
      */
     @NotBlank(message = "机构名称不能为空")
@@ -67,7 +72,7 @@ public class SysOffice extends OfficeTreeEntity<SysOffice> {
     /**
      * 区域编码
      */
-    private String code;
+    private String areaCode;
 
     /**
      * 邮政编码
@@ -105,12 +110,12 @@ public class SysOffice extends OfficeTreeEntity<SysOffice> {
     /**
      * 主负责人
      */
-    private Long primaryLeader;
+    private String primaryLeader;
 
     /**
      * 副负责人
      */
-    private Long deputyLeader;
+    private String deputyLeader;
 
     /**
      * 备注信息

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 邮箱登录对象
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 
 @Data

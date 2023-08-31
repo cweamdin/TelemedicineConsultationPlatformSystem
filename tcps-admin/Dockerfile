@@ -1,6 +1,6 @@
 FROM anapsix/alpine-java:8_server-jre_unlimited
 
-MAINTAINER Lion Li
+MAINTAINER Tao Guang
 
 RUN mkdir -p /ruoyi/server/logs \
     /ruoyi/server/temp \

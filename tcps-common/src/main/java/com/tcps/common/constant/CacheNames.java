@@ -11,7 +11,7 @@ package com.tcps.common.constant;
  * <p>
  * 例子: test#60s、test#0#60s、test#0#1m#1000、test#1h#0#500
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface CacheNames {
 
@@ -33,22 +33,22 @@ public interface CacheNames {
     /**
      * 租户
      */
-    String SYS_TENANT = GlobalConstants.GLOBAL_REDIS_KEY + "sys_tenant#30d";
+    String SYS_TENANT = GlobalConstants.GLOBAL_REDIS_KEY + "sys_tenant#5m";
 
     /**
      * 用户账户
      */
-    String SYS_USER_NAME = "sys_user_name#30d";
+    String SYS_USER_NAME = "sys_user_name#5m";
 
     /**
      * 部门
      */
-    String SYS_DEPT = "sys_dept#30d";
+    String SYS_OFFICE = "sys_office#5m";
 
     /**
      * OSS内容
      */
-    String SYS_OSS = "sys_oss#30d";
+    String SYS_OSS = "sys_oss#5m";
 
     /**
      * OSS配置

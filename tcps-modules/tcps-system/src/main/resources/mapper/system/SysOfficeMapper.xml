@@ -6,6 +6,7 @@
 
     <resultMap type="SysOffice" id="SysOfficeResult">
         <id property="officeId" column="office_id" jdbcType="BIGINT"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
         <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
         <result property="ancestors" column="ancestors" jdbcType="VARCHAR"/>
         <result property="officeName" column="office_name" jdbcType="VARCHAR"/>
@@ -13,15 +14,15 @@
         <result property="type" column="type" jdbcType="INTEGER"/>
         <result property="grade" column="grade" jdbcType="INTEGER"/>
         <result property="areaId" column="area_id" jdbcType="BIGINT"/>
-        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
         <result property="zipCode" column="zip_code" jdbcType="VARCHAR"/>
         <result property="address" column="address" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
         <result property="fax" column="fax" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="CHAR"/>
-        <result property="primaryLeader" column="primary_leader" jdbcType="BIGINT"/>
-        <result property="deputyLeader" column="deputy_leader" jdbcType="BIGINT"/>
+        <result property="primaryLeader" column="primary_leader" jdbcType="VARCHAR"/>
+        <result property="deputyLeader" column="deputy_leader" jdbcType="VARCHAR"/>
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>

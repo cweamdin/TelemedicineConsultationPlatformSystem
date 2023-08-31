@@ -3,7 +3,7 @@ package com.tcps.common.constant;
 /**
  * 翻译常量
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface TransConstant {
 

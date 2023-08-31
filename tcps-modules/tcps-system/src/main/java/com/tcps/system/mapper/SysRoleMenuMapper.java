@@ -6,7 +6,7 @@ import com.tcps.system.domain.SysRoleMenu;
 /**
  * 角色与菜单关联表 数据层
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface SysRoleMenuMapper extends BaseMapperPlus<SysRoleMenuMapper, SysRoleMenu, SysRoleMenu> {
 

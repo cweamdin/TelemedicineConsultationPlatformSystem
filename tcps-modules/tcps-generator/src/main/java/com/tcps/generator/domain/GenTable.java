@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 业务表 gen_table
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 
 @Data

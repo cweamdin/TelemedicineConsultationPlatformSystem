@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 菜单表 数据层
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @InterceptorIgnore(tenantLine = "true")
 public interface SysMenuMapper extends BaseMapperPlus<SysMenuMapper, SysMenu, SysMenu> {

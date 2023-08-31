@@ -17,6 +17,7 @@ import com.tcps.common.enums.BusinessType;
 import com.tcps.common.helper.LoginHelper;
 import com.tcps.common.utils.StreamUtils;
 import com.tcps.common.utils.StringUtils;
+import com.tcps.system.domain.vo.SysOfficeVo;
 import com.tcps.system.service.ISysOfficeService;
 import com.tcps.system.service.ISysRoleService;
 import com.tcps.system.service.ISysUserService;
@@ -33,7 +34,7 @@ import java.util.Map;
 /**
  * 用户信息
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Tag(name = "用户接口")
 @Validated

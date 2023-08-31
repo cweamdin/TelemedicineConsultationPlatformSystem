@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * 小程序登录用户身份权限
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

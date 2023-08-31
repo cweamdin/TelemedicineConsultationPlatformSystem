@@ -45,12 +45,12 @@ public interface UserConstants {
     /**
      * 部门正常状态
      */
-    String DEPT_NORMAL = "0";
+    String DEPT_NORMAL = "1";
 
     /**
      * 部门停用状态
      */
-    String DEPT_DISABLE = "1";
+    String DEPT_DISABLE = "0";
 
     /**
      * 字典正常状态

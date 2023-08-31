@@ -3,7 +3,7 @@ package com.tcps.system.service;
 /**
  * 通用 数据权限 服务
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface ISysDataScopeService {
 

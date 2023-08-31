@@ -9,7 +9,7 @@ import com.tcps.common.utils.StringUtils;
 /**
  * 无符号计算生成器
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public class UnsignedMathGenerator implements CodeGenerator {
 

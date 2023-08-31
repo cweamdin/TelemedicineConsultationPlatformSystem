@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * 角色信息
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Validated
 @RequiredArgsConstructor

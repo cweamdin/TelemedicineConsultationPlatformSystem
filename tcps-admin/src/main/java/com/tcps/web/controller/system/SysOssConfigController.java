@@ -25,7 +25,7 @@ import java.util.Arrays;
 /**
  * 对象存储配置
  *
- * @author Lion Li
+ * @author Tao Guang
  * @author 孤舟烟雨
  * @date 2021-08-13
  */

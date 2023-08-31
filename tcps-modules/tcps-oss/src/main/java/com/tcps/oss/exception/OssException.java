@@ -3,7 +3,7 @@ package com.tcps.oss.exception;
 /**
  * OSS异常类
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public class OssException extends RuntimeException {
 

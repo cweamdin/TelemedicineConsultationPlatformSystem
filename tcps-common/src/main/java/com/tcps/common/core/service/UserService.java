@@ -3,7 +3,7 @@ package com.tcps.common.core.service;
 /**
  * 通用 用户服务
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface UserService {
 

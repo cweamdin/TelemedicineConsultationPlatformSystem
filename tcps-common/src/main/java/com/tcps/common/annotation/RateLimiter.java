@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 /**
  * 限流注解
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

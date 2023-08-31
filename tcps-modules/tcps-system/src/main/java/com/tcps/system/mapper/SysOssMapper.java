@@ -7,7 +7,7 @@ import com.tcps.system.domain.vo.SysOssVo;
 /**
  * 文件上传 数据层
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 public interface SysOssMapper extends BaseMapperPlus<SysOssMapper, SysOss, SysOssVo> {
 }

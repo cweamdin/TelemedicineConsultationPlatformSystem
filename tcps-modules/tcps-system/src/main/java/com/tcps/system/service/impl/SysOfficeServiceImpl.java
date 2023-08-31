@@ -11,14 +11,18 @@ import com.tcps.common.constant.UserConstants;
 import com.tcps.common.core.domain.entity.SysOffice;
 import com.tcps.common.core.domain.entity.SysRole;
 import com.tcps.common.core.domain.entity.SysUser;
+import com.tcps.common.core.domain.vo.OfficeTreeSelectVo;
 import com.tcps.common.core.service.OfficeService;
 import com.tcps.common.exception.ServiceException;
 import com.tcps.common.helper.DataBaseHelper;
 import com.tcps.common.helper.LoginHelper;
+import com.tcps.common.utils.MapstructUtils;
 import com.tcps.common.utils.StringUtils;
 import com.tcps.common.utils.TreeBuildUtils;
 import com.tcps.common.utils.redis.CacheUtils;
 import com.tcps.common.utils.spring.SpringUtils;
+import com.tcps.system.domain.SysArea;
+import com.tcps.system.mapper.SysAreaMapper;
 import com.tcps.system.mapper.SysOfficeMapper;
 import com.tcps.system.mapper.SysRoleMapper;
 import com.tcps.system.mapper.SysUserMapper;
@@ -31,11 +35,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 部门管理 服务实现
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @RequiredArgsConstructor
 @Service
@@ -44,6 +49,8 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
     private final SysOfficeMapper baseMapper;
     private final SysRoleMapper roleMapper;
     private final SysUserMapper userMapper;
+
+    private final SysAreaMapper areaMapper;
 
     /**
      * 查询部门管理数据
@@ -58,9 +65,13 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
             .eq(ObjectUtil.isNotNull(office.getOfficeId()), SysOffice::getOfficeId, office.getOfficeId())
             .eq(ObjectUtil.isNotNull(office.getParentId()), SysOffice::getParentId, office.getParentId())
             .like(StringUtils.isNotBlank(office.getOfficeName()), SysOffice::getOfficeName, office.getOfficeName())
-            .eq(StringUtils.isNotBlank(office.getStatus()), SysOffice::getStatus, office.getStatus())
             .orderByAsc(SysOffice::getParentId)
             .orderByAsc(SysOffice::getOrderNum);
+        //        officeVos = officeVos.stream().map(officeVo -> {
+//            String areaCode = officeVo.getAreaCode();
+//            areaMapper.selectOne(new LambdaQueryWrapper<SysArea>().eq());
+//            return null;
+//        }).collect(Collectors.toList());
         return baseMapper.selectOfficeList(lqw);
     }
 
@@ -112,7 +123,7 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
      * @param officeId 部门ID
      * @return 部门信息
      */
-    @Cacheable(cacheNames = CacheNames.SYS_DEPT, key = "#officeId")
+    @Cacheable(cacheNames = CacheNames.SYS_OFFICE, key = "#officeId")
     @Override
     public SysOffice selectOfficeById(Long officeId) {
         SysOffice office = baseMapper.selectById(officeId);
@@ -235,7 +246,7 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
      * @param office 部门信息
      * @return 结果
      */
-    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#office.officeId")
+    @CacheEvict(cacheNames = CacheNames.SYS_OFFICE, key = "#office.officeId")
     @Override
     public int updateOffice(SysOffice office) {
         SysOffice newParentOffice = baseMapper.selectById(office.getParentId());
@@ -287,7 +298,7 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
         }
         if (CollUtil.isNotEmpty(list)) {
             if (baseMapper.updateBatchById(list)) {
-                list.forEach(office -> CacheUtils.evict(CacheNames.SYS_DEPT, office.getOfficeId()));
+                list.forEach(office -> CacheUtils.evict(CacheNames.SYS_OFFICE, office.getOfficeId()));
             }
         }
     }
@@ -298,7 +309,7 @@ public class SysOfficeServiceImpl implements ISysOfficeService,OfficeService {
      * @param officeId 部门ID
      * @return 结果
      */
-    @CacheEvict(cacheNames = CacheNames.SYS_DEPT, key = "#officeId")
+    @CacheEvict(cacheNames = CacheNames.SYS_OFFICE, key = "#officeId")
     @Override
     public int deleteOfficeById(Long officeId) {
         return baseMapper.deleteById(officeId);

@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * 国际化配置
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Configuration
 public class I18nConfig {

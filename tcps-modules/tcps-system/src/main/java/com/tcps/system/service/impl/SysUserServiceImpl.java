@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * 用户 业务层处理
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -67,8 +67,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
             SysOffice officeInfo = officeMapper.selectOne(new LambdaQueryWrapper<SysOffice>().eq(SysOffice::getOfficeId, sysUser.getOfficeId()));
             companyInfo.setChildren(Collections.singletonList(officeInfo));
             List<SysRole> sysRoles = sysRoleService.selectRolesByUserId(sysUser.getUserId());
-            Long[] roleIds = sysRoles.stream().filter(SysRole::isFlag)
-                .map(SysRole::getRoleId).toArray(Long[]::new);
+            Long[] roleIds = sysRoles.stream().filter(SysRole::isFlag).map(SysRole::getRoleId).toArray(Long[]::new);
             sysUser.setRoleIds(roleIds);
             sysUser.setRoles(sysRoles);
             sysUser.setOffice(companyInfo);
@@ -76,7 +75,6 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         page.setRecords(records);
         return TableDataInfo.build(page);
     }
-
 
     /**
      * 根据条件分页查询用户列表
@@ -311,7 +309,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         // 新增用户与角色管理
         insertUserRole(user);
         // 删除用户与岗位关联
-        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().eq(SysUserPost::getUserId, userId));
+//        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().eq(SysUserPost::getUserId, userId));
         // 新增用户与岗位管理
 //        insertUserPost(user);
         return baseMapper.updateById(user);
@@ -435,7 +433,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         // 删除用户与角色关联
         userRoleMapper.delete(new LambdaQueryWrapper<SysUserRole>().eq(SysUserRole::getUserId, userId));
         // 删除用户与岗位表
-        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().eq(SysUserPost::getUserId, userId));
+//        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().eq(SysUserPost::getUserId, userId));
         return baseMapper.deleteById(userId);
     }
 
@@ -456,7 +454,7 @@ public class SysUserServiceImpl implements ISysUserService, UserService {
         // 删除用户与角色关联
         userRoleMapper.delete(new LambdaQueryWrapper<SysUserRole>().in(SysUserRole::getUserId, ids));
         // 删除用户与岗位表
-        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().in(SysUserPost::getUserId, ids));
+//        userPostMapper.delete(new LambdaQueryWrapper<SysUserPost>().in(SysUserPost::getUserId, ids));
         return baseMapper.deleteBatchIds(ids);
     }
 

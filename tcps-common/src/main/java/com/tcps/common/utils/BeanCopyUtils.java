@@ -22,7 +22,7 @@ import java.util.Map;
  * 重点 cglib 不支持 拷贝到链式对象
  * 例如: 源对象 拷贝到 目标(链式对象)
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BeanCopyUtils {

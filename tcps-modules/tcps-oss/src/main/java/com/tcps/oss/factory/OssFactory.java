@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 文件上传Factory
  *
- * @author Lion Li
+ * @author Tao Guang
  */
 @Slf4j
 public class OssFactory {
